@@ -1,3 +1,5 @@
+const { default: gsap } = require("../src/gsap-core");
+
 gsap.set (".province", {scale:1});
 
 document.querySelectorAll(".province").forEach((province)=>{
@@ -14,8 +16,19 @@ document.querySelectorAll(".province").forEach((province)=>{
     // province.style.zIndex = "0";
     // province.setAttribute("opacity", "0.56");
   })
+  
 });
 
+
+
+
+// function toggleModal(){
+//     modal.classList.toggle('hidden')
+// }
+
+// document.querySelectorAll(".province").forEach((province) => {
+//   province.addEventListener("click",toggleModal);
+// });
 document.querySelectorAll(".province").forEach((province) => {
     province.addEventListener("click", () => {
       const provinceId = province.getAttribute("id");
