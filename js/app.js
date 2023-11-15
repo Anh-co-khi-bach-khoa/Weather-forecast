@@ -1,4 +1,4 @@
-const { default: gsap } = require("../src/gsap-core");
+
 
 gsap.set (".province", {scale:1});
 
