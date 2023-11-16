@@ -1,5 +1,3 @@
-
-
 gsap.set (".province", {scale:1});
 
 document.querySelectorAll(".province").forEach((province)=>{
@@ -22,13 +20,31 @@ document.querySelectorAll(".province").forEach((province)=>{
 
 
 
-// function toggleModal(){
-//     modal.classList.toggle('hidden')
-// }
 
-// document.querySelectorAll(".province").forEach((province) => {
-//   province.addEventListener("click",toggleModal);
-// });
+var modalMap = document.querySelector('.map-overlay')
+var modalMapclose = document.querySelector('.close-div i')
+
+function openMap(){
+    modalMap.style.display = 'flex';
+}
+function closeMap(){
+  modalMap.style.display ='none';
+}
+
+ document.querySelectorAll(".province").forEach((province) => {
+  province.addEventListener("click",openMap);
+  modalMapclose.addEventListener("click",closeMap);
+  modalMap.addEventListener("click", function(e){
+    if (e.target == e.currentTarget){
+      closeMap()
+    }
+  });
+
+ });
+
+
+
+
 document.querySelectorAll(".province").forEach((province) => {
     province.addEventListener("click", () => {
       const provinceId = province.getAttribute("id");
