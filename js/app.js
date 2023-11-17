@@ -1,4 +1,6 @@
+
 gsap.set (".province", {scale:1});
+
 
 document.querySelectorAll(".province").forEach((province)=>{
   province.addEventListener("mouseover", ()=>{
@@ -14,8 +16,33 @@ document.querySelectorAll(".province").forEach((province)=>{
     // province.style.zIndex = "0";
     // province.setAttribute("opacity", "0.56");
   })
+
+  province.addEventListener("click",()=>{
+    var whiteBox = document.getElementById('Detail-Province');
+    const provinceId = province.getAttribute("id");
+    // if (whiteBox.style.display === 'none' || whiteBox.style.display === '') {
+      whiteBox.style.display = 'block';
+
+      
+       
+        var svgContainer = document.getElementById('svg-Container');
+      
+
+        svgContainer.innerHTML = '';
+      
+        
+        var svgObject = document.createElement('object');
+        svgObject.data = '../SVG/DetailProvince/'+provinceId+'.svg';
+        svgObject.type = 'image/svg+xml';
+        svgContainer.appendChild(svgObject);
+      
+        whiteBox.style.display = 'block';
+  
+
+  });
   
 });
+
 
 
 
@@ -51,4 +78,5 @@ document.querySelectorAll(".province").forEach((province) => {
       alert("ID:" + provinceId);
     });
   });
+
 
