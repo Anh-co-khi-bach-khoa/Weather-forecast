@@ -1,6 +1,7 @@
-var btnOpenSearch = document.querySelector('.open-modal1-btn');
+var btnOpenSearch = document.querySelector('#Map-button');
 var modal1 = document.querySelector('.modal-Search');
-var iconCloseSearch = document.querySelector('.close-icon1 i');
+
+var iconCloseSearch = document.querySelector('#close-Search');
 
 function toggleModal1(e){
     console.log(e.currentTarget);
@@ -27,9 +28,9 @@ iconCloseSearch.addEventListener('click',closeModal1);
 
 
 
-var btnOpenFavorite = document.querySelector('.open-modal2-btn');
+var btnOpenFavorite = document.querySelector('#Favorite-button');
 var modal2 = document.querySelector('.modal-Favorite');
-var iconCloseFavorite = document.querySelector('.close-icon2 i');
+var iconCloseFavorite = document.querySelector('#close-Favorite');
 
 function toggleModal2(e){
     console.log(e.currentTarget);
