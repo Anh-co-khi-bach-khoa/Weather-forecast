@@ -17,29 +17,7 @@ document.querySelectorAll(".province").forEach((province)=>{
     // province.setAttribute("opacity", "0.56");
   })
 
-  province.addEventListener("click",()=>{
-    var whiteBox = document.getElementById('Detail-Province');
-    const provinceId = province.getAttribute("id");
-    // if (whiteBox.style.display === 'none' || whiteBox.style.display === '') {
-      whiteBox.style.display = 'block';
 
-      
-       
-        var svgContainer = document.getElementById('svg-Container');
-      
-
-        svgContainer.innerHTML = '';
-      
-        
-        var svgObject = document.createElement('object');
-        svgObject.data = '../SVG/DetailProvince/'+provinceId+'.svg';
-        svgObject.type = 'image/svg+xml';
-        svgContainer.appendChild(svgObject);
-      
-        whiteBox.style.display = 'block';
-  
-
-  });
   
 });
 
@@ -51,32 +29,72 @@ document.querySelectorAll(".province").forEach((province)=>{
 var modalMap = document.querySelector('.map-overlay')
 var modalMapclose = document.querySelector('.close-div i')
 
+
+
 function openMap(){
     modalMap.style.display = 'flex';
+
+    
 }
 function closeMap(){
   modalMap.style.display ='none';
+
 }
 
  document.querySelectorAll(".province").forEach((province) => {
-  province.addEventListener("click",openMap);
+  // province.addEventListener("click",openMap());
+  province.addEventListener("click",()=>{
+    modalMap.style.display = 'flex';
+
+    const provinceId = province.getAttribute("id");
+    var container = document.getElementById("svg-Container");
+        container.innerHTML="";
+      
+        
+        var svgObject = document.createElement('object');
+        svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
+        svgObject.type = 'image/svg+xml';
+        container.appendChild(svgObject);
+
+        svgObject.addEventListener('load', function() {
+          // Lấy document của thẻ object
+          const svgDocument = svgObject.contentDocument;
+        
+          // Kiểm tra xem contentDocument có tồn tại không
+          if (!svgDocument) {
+            console.error('Content document is null or undefined.');
+            return;
+          }
+        
+          // Lấy tất cả các path thuộc class "your-class"
+          const paths = svgDocument.getElementsByClassName('district');
+        
+          // Lặp qua từng path và thêm lắng nghe sự kiện mouseover
+          for (const path of paths) {
+            path.addEventListener('click', function() {
+              alert(path.getAttribute("id"));
+            });
+          }
+        });
+  
+
+  });
   modalMapclose.addEventListener("click",closeMap);
   modalMap.addEventListener("click", function(e){
     if (e.target == e.currentTarget){
+
       closeMap()
     }
   });
+
+  
 
  });
 
 
 
 
-document.querySelectorAll(".province").forEach((province) => {
-    province.addEventListener("click", () => {
-      const provinceId = province.getAttribute("id");
-      alert("ID:" + provinceId);
-    });
-  });
+
+
 
 

@@ -178,3 +178,9 @@ input[type=text]{
     margin-bottom: 1rem;
 }
 
+#svg-Container{
+
+justify-content: center;
+display: flex;
+
+}
