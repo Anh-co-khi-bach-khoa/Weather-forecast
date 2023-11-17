@@ -1,4 +1,3 @@
-
 gsap.set (".province", {scale:1});
 
 
@@ -42,7 +41,6 @@ document.querySelectorAll(".province").forEach((province)=>{
   });
   
 });
-
 
 
 
