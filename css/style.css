@@ -152,8 +152,6 @@ body{
 
 }
 
-
-  
   #svg-Container svg {
     width: 100%; /* Chiều rộng của SVG sẽ co dãn theo container */
     height: 100%; /* Chiều cao của SVG sẽ co dãn theo container */
