@@ -121,5 +121,44 @@ body{
     display: block;
 }
 .MapVietNam{
+    cursor: pointer;
     position: absolute;
 }
+
+#Detail-Province{
+
+    width: 700px;
+    height: 500px;
+    background-color: white;
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    border-radius: 30px;
+    z-index: 1;
+
+
+}
+
+#svg-Container{
+
+    margin-top: 30px;
+    margin-left: 20px;
+    max-width: 100%; /* Giới hạn chiều rộng tối đa của container */
+    max-height: 300px; /* Giới hạn chiều cao tối đa của container */
+    
+ 
+
+}
+
+
+  
+  #svg-Container svg {
+    width: 100%; /* Chiều rộng của SVG sẽ co dãn theo container */
+    height: 100%; /* Chiều cao của SVG sẽ co dãn theo container */
+    display: block;
+  }
+
+
+
