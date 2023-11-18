@@ -6,6 +6,7 @@ document.querySelectorAll(".province").forEach((province)=>{
   province.addEventListener("mouseover", ()=>{
     gsap.to(province, {scale: 1.5, duration:0.5});
     province.style.fillOpacity = "1";
+    
     // province.style.zIndex = "1";
     
     // province.setAttribute("opacity", "1");
@@ -28,7 +29,7 @@ document.querySelectorAll(".province").forEach((province)=>{
 
 var modalMap = document.querySelector('.map-overlay')
 var modalMapclose = document.querySelector('.close-div i')
-
+var modalTable = document.querySelector('.table');
 
 
 function openMap(){
@@ -37,6 +38,7 @@ function openMap(){
     
 }
 function closeMap(){
+  modalTable.style.display='none';
   modalMap.style.display ='none';
 
 }
@@ -44,6 +46,7 @@ function closeMap(){
  document.querySelectorAll(".province").forEach((province) => {
   // province.addEventListener("click",openMap());
   province.addEventListener("click",()=>{
+    modalTable.style.display = 'flex';
     modalMap.style.display = 'flex';
 
     const provinceId = province.getAttribute("id");
@@ -66,11 +69,13 @@ function closeMap(){
             return;
           }
         
-          // Lấy tất cả các path thuộc class "your-class"
+
           const paths = svgDocument.getElementsByClassName('district');
+
         
           // Lặp qua từng path và thêm lắng nghe sự kiện mouseover
           for (const path of paths) {
+            path.style.cursor= "pointer";
             path.addEventListener('click', function() {
               alert(path.getAttribute("id"));
             });
