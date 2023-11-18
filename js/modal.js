@@ -1,5 +1,5 @@
 var btnOpenSearch = document.querySelector('#Map-button');
-var modal1 = document.querySelector('.modal-Search');
+var modal1 = document.querySelector('#modal-Search');
 
 var iconCloseSearch = document.querySelector('#close-Search');
 
@@ -29,7 +29,7 @@ iconCloseSearch.addEventListener('click',closeModal1);
 
 
 var btnOpenFavorite = document.querySelector('#Favorite-button');
-var modal2 = document.querySelector('.modal-Favorite');
+var modal2 = document.querySelector('#modal-Favorite');
 var iconCloseFavorite = document.querySelector('#close-Favorite');
 
 function toggleModal2(e){

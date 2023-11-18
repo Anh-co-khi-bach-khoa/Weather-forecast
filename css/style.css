@@ -43,7 +43,7 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
-    display: none;
+    display: flex;
     z-index: 5;
 }
 .modal-Favorite{
@@ -52,7 +52,7 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
-    display: none;
+    display: flex;
 }
 .modal_inner-Favorite{
     border-radius: 5px;
