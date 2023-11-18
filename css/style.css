@@ -39,6 +39,7 @@ body{
     height: 40px;
 }
 .modal-Search{
+    z-index: 5;
     background-color: white;
     width: 400px;
     border: 1px solid transparent;
@@ -132,6 +133,7 @@ input[type=text]{
 } */
 
 #root .MapVietNam .map-overlay{
+    width: 100%;
     position: fixed;
     z-index: 5;
     inset: 0;
@@ -142,7 +144,8 @@ input[type=text]{
 }
 #root .MapVietNam .map-overlay .map-outer-box{
     position: relative;
-    left: 30rem;
+    
+    left: 28rem;
     bottom: 5rem;
     width: 60rem;
     height: 44rem;
@@ -176,4 +179,8 @@ input[type=text]{
 #root .MapVietNam .map-overlay .map-outer-box .map-inner-box h2{
     text-align: center;
     margin-bottom: 1rem;
+}
+.calendar-container{
+    margin-left: 50%;
+    z-index: 10;
 }

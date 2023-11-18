@@ -10,6 +10,9 @@
     <script src="../js/app.js" defer></script>
     <!-- <script src="../js/modal.js" defer></script> -->
     <script src="../js/testScript.js" defer></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="../css/calendar.css">
+    <script src="../js/calendar.js" defer></script>
 </head>
 <body>
 <div id="root">
@@ -194,12 +197,40 @@
             <div class="fade-animate">
               <h2>Province name</h2>
               <img src="../assets/images/img-test.jpg" alt="danang" style="width: 100%; border-radius: 12px;" class="province-img">
+              <!-- <div id="svg-Container"></div> -->
             </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<div class="calendar-outer-container">
+  <div class="calendar-inner-container">
+    <div class="wrapper">
+      <header>
+        <p class="current-date"></p>
+        <div class="icons">
+          <span id="prev" class="material-symbols-rounded">chevron_left</span>
+          <span id="next" class="material-symbols-rounded">chevron_right</span>
+        </div>
+      </header>
+      <div class="calendar">
+        <ul class="weeks">
+          <li>Sun</li>
+          <li>Mon</li>
+          <li>Tue</li>
+          <li>Wed</li>
+          <li>Thu</li>
+          <li>Fri</li>
+          <li>Sat</li>
+        </ul>
+        <ul class="days"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 </body>

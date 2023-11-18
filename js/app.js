@@ -23,15 +23,19 @@ document.querySelectorAll(".province").forEach((province)=>{
 
 var modalMap = document.querySelector('.map-overlay')
 var modalMapclose = document.querySelector('.close-div i')
+var modalCalendar = document.querySelector('.calendar-outer-container')
 
 function openMap(){
     modalMap.style.display = 'flex';
+    modalCalendar.style.display ='flex';
 }
 function closeMap(){
   modalMap.style.display ='none';
+  modalCalendar.style.display ='none';
 }
-
  document.querySelectorAll(".province").forEach((province) => {
+
+  var modalProvince = document.querySelector('#Detail-Province')
   province.addEventListener("click",openMap);
   modalMapclose.addEventListener("click",closeMap);
   modalMap.addEventListener("click", function(e){
