@@ -24,19 +24,61 @@ document.querySelectorAll(".province").forEach((province)=>{
 var modalMap = document.querySelector('.map-overlay')
 var modalMapclose = document.querySelector('.close-div i')
 var modalCalendar = document.querySelector('.calendar-outer-container')
+var modalTable = document.querySelector('.table')
 
 function openMap(){
     modalMap.style.display = 'flex';
     modalCalendar.style.display ='flex';
+    modalTable.style.display = 'flex'
 }
 function closeMap(){
   modalMap.style.display ='none';
   modalCalendar.style.display ='none';
+  modalTable.style.display = 'none'
 }
  document.querySelectorAll(".province").forEach((province) => {
 
-  var modalProvince = document.querySelector('#Detail-Province')
-  province.addEventListener("click",openMap);
+  // var modalProvince = document.querySelector('#Detail-Province')
+  province.addEventListener("click",()=>{
+    modalCalendar.style.display = 'flex';
+    modalTable.style.display = 'flex';
+    modalMap.style.display = 'flex';
+
+    const provinceId = province.getAttribute("id");
+    var container = document.getElementById("svg-Container");
+        container.innerHTML="";
+      
+        
+        var svgObject = document.createElement('object');
+        svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
+        svgObject.type = 'image/svg+xml';
+        container.appendChild(svgObject);
+
+        svgObject.addEventListener('load', function() {
+          // Lấy document của thẻ object
+          const svgDocument = svgObject.contentDocument;
+        
+          // Kiểm tra xem contentDocument có tồn tại không
+          if (!svgDocument) {
+            console.error('Content document is null or undefined.');
+            return;
+          }
+        
+
+          const paths = svgDocument.getElementsByClassName('district');
+
+        
+          // Lặp qua từng path và thêm lắng nghe sự kiện mouseover
+          for (const path of paths) {
+            path.style.cursor= "pointer";
+            path.addEventListener('click', function() {
+              alert(path.getAttribute("id"));
+            });
+          }
+        });
+  
+
+  });
   modalMapclose.addEventListener("click",closeMap);
   modalMap.addEventListener("click", function(e){
     if (e.target == e.currentTarget){
@@ -47,12 +89,4 @@ function closeMap(){
  });
 
 
-
-
-document.querySelectorAll(".province").forEach((province) => {
-    province.addEventListener("click", () => {
-      const provinceId = province.getAttribute("id");
-      alert("ID:" + provinceId);
-    });
-  });
 
