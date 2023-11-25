@@ -22,28 +22,19 @@ body{
     flex-direction: column; 
     margin-left: 20px;
 }
-#Map-button{
+.open-modal-btn{
     padding: 0;
     width: 50px;
     height: 40px;
     border: none;
     cursor: pointer;
     background: transparent;
-}
-#Map-button svg{
-    width: 50px;
-    height: 40px;
+    display: flex;
 }
 #Favorite-button{
-    padding: 0;
     margin-top: 20px;
-    width: 50px;
-    height: 40px;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-}   
-#Favorite-button svg{
+} 
+.open-modal-btn svg{
     width: 50px;
     height: 40px;
 }
@@ -52,6 +43,8 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
+    display: flex;
+    z-index: 5;
 }
 .modal-Favorite{
     margin-top: 20px;
@@ -59,8 +52,14 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
+    display: flex;
 }
-.modal_inner{
+.modal_inner-Favorite{
+    border-radius: 5px;
+    margin: 1rem;
+    position: relative;
+}
+.modal_inner-Search{
     border-radius: 5px;
     margin: 1rem;
     position: relative;
@@ -68,24 +67,18 @@ body{
 .modal_header{
     display: flex;
     flex-direction: row;
+    width: 360px;
     justify-content: space-between;
     align-items: center;
 }
-/* .search-bar{
-    width: 300px;
-    font-size: 14px;
-    height: 36px;
-    background-color: #343746;
-    padding-right: 21px;
-    position: relative;
-    align-items: center;
-    border: 1px solid transparent;
+.close{
+    cursor: pointer;
 }
-.search-bar__input{
-    border: none;
-    outline: none;
-} */
-.search-bar{
+
+
+
+
+.search-bar {
     width: 300px;
     display: flex;
     background-color:#d3c5c5;
@@ -94,18 +87,32 @@ body{
     border-radius: 30px;
     padding: 3px;    
 }
-.search-bar_input{
+/* .search-bar_input{
     font-size: 20px;
     color: #7c7777;
     width:240px;
     border: none;
     outline: none;
     background-color:#d3c5c5;
-    /* background-color:white; */
     height: 30px;
     padding:0;
+} */
+input[type=text]{
+    font-size: 20px;
+    color: #7c7777;
+    width:240px;
+    border: none;
+    outline: none;
+    background-color:#d3c5c5;
+    height: 30px;
+    padding:15px 10px;
+    transition: all 200ms ease;
 }
-.btn-search{
+/* input[type=text]:focus{
+    outline: none;
+    border: 1px solid #d3c5c5;
+} */
+.btn-icon-search{
     height: 30px;
     text-align: center;
     width: 40px;
@@ -121,5 +128,153 @@ body{
     display: block;
 }
 .MapVietNam{
-    position: absolute;
+    position: fixed;
+    margin-left: 550px;
+    margin-top: 20px;
 }
+/* #svg-map{
+    display: none;
+} */
+
+#root .MapVietNam .map-overlay{
+    position: fixed;
+    z-index: 5;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#root .MapVietNam .map-overlay .map-outer-box{
+    position: relative;
+    left: 30rem;
+    bottom: 5rem;
+    width: 60rem;
+    height: 44rem;
+}
+.province-img{
+    display: block;
+    width: 100%;
+    /* transform: translateX(-50%); */
+    /* left: 50%; */
+}
+#root .MapVietNam .map-overlay .map-outer-box .map-inner-box{
+    position: relative;
+    z-index: 2;
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    padding: 20px;
+}
+#root .MapVietNam .map-overlay .map-outer-box .map-inner-box .close-div{
+    width: 100%;
+    height: max-content;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+#root .MapVietNam .map-overlay .map-outer-box .map-inner-box .close-div #close-Province{
+    color: rgba(0, 0, 0, .5);
+    font-size: 1.5rem;
+}
+#root .MapVietNam .map-overlay .map-outer-box .map-inner-box h2{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#svg-Container{
+
+justify-content: center;
+display: flex;
+
+}
+
+.province{
+    cursor: pointer;
+}
+
+.table{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 200px;
+    display: none;
+    background-color: white;
+    border-radius: 10px;
+    flex-direction: row;
+    
+}
+
+.content-left{
+    /* flex: 0 0 20px; */
+    width: 8%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ccc;
+}
+
+.row{
+    height:30px;
+    text-align: right;
+}
+
+.legend-left{
+    width: 80px;
+    max-width: 80px;
+    text-align: right;
+    color: #999;
+    padding-left: 6px;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.legend-right{
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+
+}
+
+.legend-right img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.content-right{
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    height: 100%;
+    
+}
+
+.content-right .row{
+    border-top: 1px solid #ccc;
+}
+
+.data-table{
+    width: 100%;
+    border-collapse: collapse;
+   
+}
+
+.data-table tr{
+    height: 30px;
+    width: 30px;
+}
+
+.data-table th, .data-table td{
+    border: 1px solid #ddd;
+    
+    text-align: left;
+    width: 30px; 
+    height: 30px;
+}
+
+
+
