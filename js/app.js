@@ -112,8 +112,9 @@ function closeMap(){
 
 
         let url_API="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+provinceId;
-        fetchAPI(url_API);
-
+        let url_API_Region = "http://localhost:8080/weather.api/v1/regions/"+provinceId;
+        fetchAPI_data(url_API);
+        fetchAPI_region(url_API_Region);
 
         svgObject.addEventListener('load', function() {
 
@@ -151,7 +152,7 @@ function closeMap(){
  });
 
  var data;
- async function fetchAPI(url){
+ async function fetchAPI_data(url){
 
   const response = await fetch(url);
   var json_data = await response.json();
@@ -161,6 +162,13 @@ function closeMap(){
   showData();
 
 
+ }
+
+ async function fetchAPI_region(url){
+  const response = await fetch(url);
+  let data= await response.json();
+  console.log(data.name);
+  document.querySelector("#header-province").innerHTML=data.name;
  }
 
 var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
