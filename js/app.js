@@ -26,27 +26,85 @@ var modalMapclose = document.querySelector('.close-div i')
 var modalCalendar = document.querySelector('.calendar-outer-container')
 var modalTable = document.querySelector('.table')
 
-function openMap(){
-    modalMap.style.display = 'flex';
-    modalCalendar.style.display ='flex';
-    modalTable.style.display = 'flex'
+// function openMap(){
+//     // modalMap.style.display = 'flex';
+//     // modalCalendar.style.display ='flex';
+//     // modalTable.style.display = 'flex'
+// }
+function openMap() {
+  let masterTimeline = gsap.timeline();
+
+  let mapTimeline = gsap.timeline();
+  mapTimeline.to(".map-overlay", {
+      display: "flex"
+  });
+  mapTimeline.from(".map-overlay", {
+      duration: 0.5,
+      backgroundColor: "rgba(0, 0, 0, 0)",
+      ease: "power4.out"
+  });
+  mapTimeline.from(".map-inner-box", {
+    duration: 0.5,
+    opacity: 0,
+    ease: "power4.out"
+});
+
+  mapTimeline.from(".fade-animate", {
+      duration: 0.5,
+      opacity: 0,
+      ease: "power4.out"
+  });
+
+  let calendarTimeline = gsap.timeline();
+  calendarTimeline.to(".calendar-outer-container", {
+    display: "flex"
+  });
+  calendarTimeline.from(".calendar-outer-container", {
+      duration: 0.5,
+      opacity: 0,
+      ease: "power4.out"
+  });
+
+  let tableTimeline = gsap.timeline();
+  tableTimeline.to(".table", {
+    display: "flex"
+  });
+  tableTimeline.from(".table", {
+      duration: 0.5,
+      opacity: 0,
+      ease: "power4.out"
+  });
+
+  masterTimeline.add(mapTimeline, 0);
+  masterTimeline.add(calendarTimeline, 0.5);
+  masterTimeline.add(tableTimeline, 0.5);
+
+  masterTimeline.reverse();
+  masterTimeline.restart();
 }
 function closeMap(){
   modalMap.style.display ='none';
   modalCalendar.style.display ='none';
   modalTable.style.display = 'none'
+
 }
 
+<<<<<<< HEAD
 //click vao tinh tren ban do Viet Nam co the lay ra id
+=======
+>>>>>>> bdd2e8650e1b9398b474cb5965129e8abe199c0c
  document.querySelectorAll(".province").forEach((province) => {
 
 
   province.addEventListener("click",()=>{
-    modalCalendar.style.display = 'flex';
-    modalTable.style.display = 'flex';
-    modalMap.style.display = 'flex';
 
+    openMap();
+    
     const provinceId = province.getAttribute("id");
+    //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
+    document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
+    updateFavoriteButtonInModal();
+
     var container = document.getElementById("svg-Container");
         container.innerHTML="";
       
@@ -89,6 +147,7 @@ function closeMap(){
   modalMap.addEventListener("click", function(e){
     if (e.target == e.currentTarget){
       closeMap()
+      
     }
   });
 
@@ -154,4 +213,40 @@ for(var i=0; i<=10; i++){
   };
 
 
+ function likeToggle(){
+      const curentProvince = document.querySelector("#heart-icon").getAttribute("data-index");
+      let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
 
+      const isFavorite = favoriteList.includes(curentProvince);
+
+      if (!isFavorite){
+          favoriteList.push(curentProvince);
+
+          localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+          alert(`${curentProvince} added to favorite list!`);
+          updateFavoriteButtonInModal();
+          
+      }
+      else{
+          favoriteList = favoriteList.filter(item => item !== curentProvince);
+          localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+          alert(`${curentProvince} removed from favorite list!`);
+          updateFavoriteButtonInModal();
+      }
+  
+}
+
+function updateFavoriteButtonInModal(){
+      const curentProvince = document.querySelector("#heart-icon").getAttribute("data-index");
+      let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
+      const isFavorite = favoriteList.includes(curentProvince);
+      var heartIcon = document.querySelector("#heart-icon");
+      if (isFavorite){
+        heartIcon.style.color = "pink";
+      
+      }else{
+        heartIcon.style.color = "grey";
+      }
+
+
+}
