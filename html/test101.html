@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
+<body style="text-align:center;">
+
+<h2>Basic Tooltip</h2>
+
+<p>Move the mouse over the text below:</p>
+
+<div class="tooltip">Hover over me
+  <span class="tooltiptext">Tooltip text</span>
+</div>
+
+<p>Note that the position of the tooltip text isn't very good. Go back to the tutorial and continue reading on how to position the tooltip in a desirable way.</p>
+
+<svg height="500"width="500">
+ 
+  <path d="M250 250 L250 0 A250,250,0,0,1,466.50635094610965,124.99999999999997  L250 250 Z" fill="#ddd" stroke="#ddd"></path>
+  <defs>
+    <path id="p1" d="M250 50 A200,200,0,0,1,423.2050807568877,149.99999999999997" fill="#ddd" stroke="#ddd"></path>
+  </defs>
+  <text style="font-size: 24px;">
+    <textPath xlink:href="#p1" startOffset="50%" text-anchor="middle">1test text</textPath>
+  </text>
+  
+</svg>
+
+</body>
+</html>
+
+
