@@ -191,11 +191,11 @@ input[type=text]{
     justify-content: center;
     display: flex;
     
-    }
+}
     
-    .province{
-        cursor: pointer;
-    }
+.province{
+    cursor: pointer;
+}
 
 
 
@@ -205,21 +205,25 @@ input[type=text]{
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 200px;
+    height: 240px;
     display: none;
-    background-color: white;
+    background-color: rgb(235 232 232);
     border-radius: 10px;
-    flex-direction: row;
-    
+
+    /* flex-direction: row; */
+    /* overflow-x:auto ; */
+
 }
 
 .content-left{
     /* flex: 0 0 20px; */
     width: 8%;
-    height: 100%;
-    display: flex;
+    height: 200px;
+    /* display: flex; */
     flex-direction: column;
     border-right: 1px solid #ccc;
+    white-space: nowrap;
+        /* table-layout: fixed; */
 }
 
 .row{
@@ -232,7 +236,7 @@ input[type=text]{
     max-width: 80px;
     text-align: right;
     color: #999;
-    padding-left: 6px;
+    padding-left: 10px;
     font-size: 15px;
     overflow: hidden;
     white-space: nowrap;
@@ -247,8 +251,9 @@ input[type=text]{
 }
 
 .legend-right img{
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 23px;
+    max-height: 23px;
+    
 }
 
 .content-right{
@@ -256,28 +261,36 @@ input[type=text]{
     flex-direction: column;
     width: 92%;
     height: 100%;
-    
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .content-right .row{
     border-top: 1px solid #ccc;
+    border-bottom: none;
+    
 }
 
 .data-table{
-    width: 100%;
+    width: 570%;
     border-collapse: collapse;
+    
    
 }
 
-.data-table tr{
-    height: 30px;
-    width: 30px;
-}
+/* .data-table tr{
+    height: 30px; */
+    /* width: 30px; */
+/* } */
 
 .data-table th, .data-table td{
-    border: 1px solid #ddd;
+    border-right: 1px solid #bdb8b8;
     
-    text-align: left;
+    text-align: center;
     width: 30px; 
     height: 30px;
 }
+
+
+  
+
