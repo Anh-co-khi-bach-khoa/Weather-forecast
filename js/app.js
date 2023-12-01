@@ -1,21 +1,30 @@
 gsap.set (".province", {scale:1});
 
 document.querySelectorAll(".province").forEach((province)=>{
-  province.addEventListener("mouseover", ()=>{
-    gsap.to(province, {scale: 1.5, duration:0.5});
+  province.addEventListener("mouseover", (event)=>{
+    gsap.to(province, {scale: 1.15, duration:0.5});
     province.style.fillOpacity = "1";
-    // province.style.zIndex = "1";
-    
-    // province.setAttribute("opacity", "1");
+    let name = province.getAttribute('name');
+    var tooltip = document.getElementById('tooltip');
+
+    var mouseX = event.clientX-360;
+    var mouseY = event.clientY +50;
+  
+    tooltip.style.display = 'block';
+    tooltip.style.left = mouseX + 'px';
+    tooltip.style.top = mouseY  + 'px';
+    tooltip.innerHTML=name;
+
   })
   province.addEventListener("mouseout", ()=>{
     gsap.to(province, {scale:1, duration:0.5});
     province.style.fillOpacity = "0.56";
-    // province.style.zIndex = "0";
-    // province.setAttribute("opacity", "0.56");
+    var tooltip = document.getElementById('tooltip');
+    tooltip.style.display='none';
   })
   
 });
+
 
 
 
@@ -133,9 +142,26 @@ function closeMap(){
           // lap qua tung path va them su kien click
           for (const path of paths) {
             path.style.cursor= "pointer";
-            path.addEventListener('click', function() {
-              alert(path.getAttribute("name"));
+            path.addEventListener('mouseover', function(event) {
+              // alert(path.getAttribute("name"));
+              let name = path.getAttribute('name');
+              var tooltip = document.getElementById('tooltip');
+          
+              var mouseX = event.clientX + 500;
+              var mouseY = event.clientY +150;
+            
+              tooltip.style.display = 'block';
+              tooltip.style.left = mouseX + 'px';
+              tooltip.style.top = mouseY  + 'px';
+              tooltip.innerHTML=name;
             });
+
+            path.addEventListener('mouseout', function(event){
+              var tooltip = document.getElementById('tooltip');
+              tooltip.style.display='none';
+            })
+
+            
           }
         });
   
