@@ -1,3 +1,4 @@
+
 const modalSearch = document.querySelector('#modal-Search'),
     closeSearch = document.querySelector('#close-Search'),
     btnMap = document.querySelector('#Map-button'),

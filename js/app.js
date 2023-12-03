@@ -1,6 +1,4 @@
-
 gsap.set (".province", {scale:1});
-
 
 document.querySelectorAll(".province").forEach((province)=>{
   province.addEventListener("mouseover", (event)=>{
@@ -24,8 +22,6 @@ document.querySelectorAll(".province").forEach((province)=>{
     var tooltip = document.getElementById('tooltip');
     tooltip.style.display='none';
   })
-
-
   
 });
 
@@ -96,7 +92,6 @@ function openMap() {
   masterTimeline.restart();
 }
 function closeMap(){
-  modalTable.style.display='none';
   modalMap.style.display ='none';
   modalCalendar.style.display ='none';
   modalTable.style.display = 'none'
@@ -175,13 +170,10 @@ function closeMap(){
   modalMapclose.addEventListener("click",closeMap);
   modalMap.addEventListener("click", function(e){
     if (e.target == e.currentTarget){
-
       closeMap()
       
     }
   });
-
-  
 
  });
 

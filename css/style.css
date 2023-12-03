@@ -44,8 +44,7 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
-    display: flex;
-    z-index: 5;
+    display: none;
 }
 .modal-Favorite{
     margin-top: 20px;
@@ -53,7 +52,7 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
-    display: flex;
+    display: none;
 }
 .modal_inner-Favorite{
     border-radius: 5px;
@@ -78,10 +77,6 @@ body{
 .close{
     cursor: pointer;
 }
-
-
-
-
 .search-bar {
     width: 300px;
     display: flex;
