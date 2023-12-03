@@ -11,12 +11,12 @@ body{
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
 }
 .btn-container{
-    margin-top: 20px;
+    margin-top: 33px;
     justify-content: left;
     display: flex;
     flex-direction: column; 
@@ -39,6 +39,7 @@ body{
     height: 40px;
 }
 .modal-Search{
+    z-index: 5;
     background-color: white;
     width: 400px;
     border: 1px solid transparent;
@@ -57,7 +58,10 @@ body{
 .modal_inner-Favorite{
     border-radius: 5px;
     margin: 1rem;
+    margin-bottom: 2rem;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .modal_inner-Search{
     border-radius: 5px;
@@ -137,6 +141,7 @@ input[type=text]{
 } */
 
 #root .MapVietNam .map-overlay{
+    width: 100%;
     position: fixed;
     z-index: 5;
     inset: 0;
@@ -147,7 +152,8 @@ input[type=text]{
 }
 #root .MapVietNam .map-overlay .map-outer-box{
     position: relative;
-    left: 30rem;
+    
+    left: 28rem;
     bottom: 5rem;
     width: 60rem;
     height: 44rem;
@@ -166,6 +172,21 @@ input[type=text]{
     height: 100%;
     padding: 20px;
 }
+
+#root .MapVietNam .map-overlay .map-outer-box .map-inner-box .fade-animate i{
+    cursor: pointer;
+    position: absolute;
+    color: grey;
+    font-size: 2rem;
+    font-weight: 0;
+    float: left;
+    margin-left: 2.5rem;
+}
+/* #root .MapVietNam .map-overlay .map-outer-box .map-inner-box .fade-animate i:hover{
+    
+    color: #d9317a;
+} */
+
 #root .MapVietNam .map-overlay .map-outer-box .map-inner-box .close-div{
     width: 100%;
     height: max-content;
@@ -182,38 +203,50 @@ input[type=text]{
     text-align: center;
     margin-bottom: 1rem;
 }
+.calendar-container{
+    margin-left: 50%;
+    z-index: 10;
+}
+
 
 #svg-Container{
 
-justify-content: center;
-display: flex;
-
+    justify-content: center;
+    display: flex;
+    
 }
-
+    
 .province{
     cursor: pointer;
 }
+
+
+
 
 .table{
     position: absolute;
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 200px;
+    height: 240px;
     display: none;
-    background-color: white;
+    background-color: rgb(235 232 232);
     border-radius: 10px;
-    flex-direction: row;
-    
+
+    /* flex-direction: row; */
+    /* overflow-x:auto ; */
+
 }
 
 .content-left{
     /* flex: 0 0 20px; */
     width: 8%;
-    height: 100%;
-    display: flex;
+    height: 200px;
+    /* display: flex; */
     flex-direction: column;
     border-right: 1px solid #ccc;
+    white-space: nowrap;
+        /* table-layout: fixed; */
 }
 
 .row{
@@ -226,7 +259,7 @@ display: flex;
     max-width: 80px;
     text-align: right;
     color: #999;
-    padding-left: 6px;
+    padding-left: 10px;
     font-size: 15px;
     overflow: hidden;
     white-space: nowrap;
@@ -241,8 +274,9 @@ display: flex;
 }
 
 .legend-right img{
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 23px;
+    max-height: 23px;
+    
 }
 
 .content-right{
@@ -250,31 +284,136 @@ display: flex;
     flex-direction: column;
     width: 92%;
     height: 100%;
-    
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .content-right .row{
     border-top: 1px solid #ccc;
+    border-bottom: none;
+    
 }
 
 .data-table{
-    width: 100%;
+    width: 570%;
     border-collapse: collapse;
+    
    
 }
 
-.data-table tr{
-    height: 30px;
-    width: 30px;
-}
+/* .data-table tr{
+    height: 30px; */
+    /* width: 30px; */
+/* } */
 
 .data-table th, .data-table td{
-    border: 1px solid #ddd;
+    border-right: 1px solid #bdb8b8;
     
-    text-align: left;
+    text-align: center;
     width: 30px; 
     height: 30px;
 }
 
+.favorite-menu{
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.favorite-menu nav{
+    width: 80%;
+}
+.favs-line{
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+.favs-province-name{
+    font-size: 16px;
+    font-weight: 300;
+    overflow: hidden;
+    display: inline-block;
+}
+.favs-deleter{
+    font-size: 16px;
+    float: right;
+}
+.favs-weather{
+    display: block;
+    padding: 5px 10px;
+}
+.favs-weather table{
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
+}
+.favs-weather table tbody{
+    display: table-row-group;
+    vertical-align: middle;
+}
+.favs-weather table tbody tr{
+    display: table-row;
+}
+.favs-weather table tbody tr td{
+    color: black;
+    font-size: 9px;
+    text-align: center;
+    text-transform: uppercase;
+    /* border-right: 1px solid rgba(239,239,239,.3); */
+    border-right: 1px solid black;
+}
+.favs-weather table tbody tr td:last-child{
+    border: none;
+}
+.favs-weather table tbody tr td img{
+    width: 27px;
+    margin: 2px auto 2px auto;
+    display: block;
+}
+.favs-weather table tbody tr td big{
+    display: block;
+    font-size: 12px;
+    padding-bottom: 3.5px;
+}
 
+/* .favorite-menu nav ul li{
+    position: relative;
+    width: 100%;
+    padding: 1.5rem 0px;
+    font-size: 30px;
+    font-weight: 300;
+}
+.favorite-menu nav ul li p{
+    overflow: hidden;
+}
+.favorite-menu nav ul li span{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: black;
+}
+.favorite-menu nav ul li img{
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20%;
+    transform: translateY(50px) rotate(45deg);
+    opacity: 0;
+    transition: all 700ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+.favorite-menu nav ul li:hover img{
+    opacity: 1;
+    transform: translateY(10px) rotate(0deg);
+} */
 
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    z-index: 6;
+}
