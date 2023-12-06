@@ -27,12 +27,45 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.icon-location{
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+    display: none;
+    z-index: 30;
+    position: fixed;
+}
 </style>
 <body style="text-align:center;">
 
 <div class="tooltip">Hover over me
   <span class="tooltiptext">Tooltip text</span>
 </div>
+
+<img class="icon-location" src="../assets/images/location.png" alt=""> 
+
+<script>
+
+document.addEventListener("click", function(event){
+  let locationIcon = document.querySelector(".icon-location");
+
+// Kiểm tra xem thẻ có tồn tại không
+if (locationIcon) {
+
+
+  // Thiết lập vị trí của thẻ img tại vị trí xảy ra sự kiện click
+  locationIcon.style.left = event.clientX + "px";
+  locationIcon.style.top = event.clientY + "px";
+  
+  console.log(locationIcon.style.left);
+  console.log(locationIcon.style.top);
+  // Thiết lập style cho thẻ img để hiển thị
+  locationIcon.style.display = "flex";
+}
+})
+
+</script>
 
 
 </body>

@@ -44,7 +44,7 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
-    display: none;
+    display: flex;
 }
 .modal-Favorite{
     margin-top: 20px;
@@ -52,7 +52,7 @@ body{
     width: 400px;
     border: 1px solid transparent;
     border-radius: 10px;
-    display: none;
+    display: flex;
 }
 .modal_inner-Favorite{
     border-radius: 5px;
@@ -203,7 +203,6 @@ input[type=text]{
     z-index: 10;
 }
 
-
 #svg-Container{
 
     justify-content: center;
@@ -223,7 +222,7 @@ input[type=text]{
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 240px;
+    height: 220px;
     display: none;
     background-color: rgb(235 232 232);
     border-radius: 10px;
@@ -281,6 +280,16 @@ input[type=text]{
     height: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
+}
+
+.content-right::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+.modal_body::-webkit-scrollbar{
+    width: 0;
+    height: 0;
 }
 
 .content-right .row{
@@ -408,7 +417,33 @@ input[type=text]{
     position: absolute;
     background-color: #333;
     color: #fff;
-    padding: 5px;
+    padding: 10px;
     border-radius: 3px;
     z-index: 6;
+}
+
+
+
+.result-box ul{
+    padding: 15px 10px;
+}
+
+.result-box ul li{
+    list-style: none;
+    border-radius: 3px;
+    padding: 15px 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.result-box ul li:hover{
+    background: #e3e1e1;
+}
+
+.icon-location{
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+    display: none;
+    position: absolute;
 }

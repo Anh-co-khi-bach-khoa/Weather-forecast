@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="../js/app.js" defer></script>
-    <!-- <script src="../js/modal.js" defer></script> -->
-    <script src="../js/testScript.js" defer></script>
+    <script src="../js/modal.js" defer></script>
+    <!-- <script src="../js/testScript.js" defer></script> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="../css/calendar.css">
     <script src="../js/calendar.js" defer></script>
@@ -42,11 +42,18 @@
           </div>
           
         </div>
-        <div class="modal_body">
-          <h3>Modal testing</h3>
-          <p>Never gonna give you up</p>
-          <br>
-          <p>Lorem ipsum</p>
+        <div class="modal_body" style="height: 300px; overflow-y: scroll;">
+          <!-- Nơi để hiển thị thông tin đề xuất cho việc tìm kiếm, css overflow-y-->
+          <!-- Yêu cầu: + Mỗi đề xuất sẽ chứa một id tương ứng với vùng đó (sự kiện keyup, sẽ fetchAPI lấy dữ
+                        liệu ngay khi trang web được load lên) -->
+          <!--          + Thông tin của một đề xuất "tên Tỉnh hoặc tên Huyện-Tỉnh" -->
+          <!--          + Sự kiện xảy ra khi click vào một đề xuất -->
+          <!--          + Khi Sự kiện "nhấn vào nút Search" xảy ra thì sẽ tự động lấy đề xuất nằm ở vị trí đầu tiên -->
+          <!-- Thứ cần thiết khi fetchAPI: + Dữ liệu cần từ API: id, province, district -->
+          <!--                             + Nếu kết quả đề xuất "tỉnh" thì id là của tỉnh, nếu là "tỉnh-huyện" thì id là của huyện -->
+            <div class="result-box">
+
+            </div>
         </div>
       </div>
     </div>
@@ -295,7 +302,7 @@
       </clipPath>
       </defs>
       </svg>
-      <div class="tooltip" id="tooltip">asdfaf</div>
+      <div class="tooltip" id="tooltip1"></div>
       
     <div class="map-overlay">
       <div class="map-outer-box">
@@ -313,7 +320,9 @@
               </div>
               
               
-              <div id="svg-Container"></div>
+              <div id="svg-Container"> </div>
+              <img class="icon-location" src="../assets/images/location.png" alt="">
+              <div class="tooltip" id="tooltip2"></div>
             </div>
         </div>
       </div>
@@ -411,7 +420,10 @@
 
 
 
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="../js/autoCompleteSearch.js"></script>
 </body>
 </html>
 

@@ -4,7 +4,7 @@ var modal1 = document.querySelector('.modal-Search');
 var iconCloseSearch = document.querySelector('#close-Search');
 
 function toggleModal1(e){
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
     modal1.classList.toggle('hidden');
 }
 function showModal1(){
@@ -16,15 +16,14 @@ function closeModal1(){
     document.getElementById("btn1").style.display ='block';
     document.getElementById("svg1").style.display ='block';
     document.getElementById("Map-button").style.display ='block';
+
+    
 }
 
 btnOpenSearch.addEventListener('click', toggleModal1);
 btnOpenSearch.addEventListener('click', showModal1);
 iconCloseSearch.addEventListener('click',toggleModal1);
 iconCloseSearch.addEventListener('click',closeModal1);
-
-
-
 
 
 

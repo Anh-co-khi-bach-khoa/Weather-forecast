@@ -5,7 +5,7 @@ document.querySelectorAll(".province").forEach((province)=>{
     gsap.to(province, {scale: 1.15, duration:0.5});
     province.style.fillOpacity = "1";
     let name = province.getAttribute('name');
-    var tooltip = document.getElementById('tooltip');
+    var tooltip = document.getElementById('tooltip1');
 
     var mouseX = event.clientX-360;
     var mouseY = event.clientY +50;
@@ -19,15 +19,11 @@ document.querySelectorAll(".province").forEach((province)=>{
   province.addEventListener("mouseout", ()=>{
     gsap.to(province, {scale:1, duration:0.5});
     province.style.fillOpacity = "0.56";
-    var tooltip = document.getElementById('tooltip');
+    var tooltip = document.getElementById('tooltip1');
     tooltip.style.display='none';
   })
   
 });
-
-
-
-
 
 
 var modalMap = document.querySelector('.map-overlay')
@@ -104,67 +100,11 @@ function closeMap(){
 
   province.addEventListener("click",()=>{
 
-    openMap();
-    
     const provinceId = province.getAttribute("id");
+    const nameProvince= province.getAttribute("name");
     //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
-    document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
-    updateFavoriteButtonInModal();
-
-    var container = document.getElementById("svg-Container");
-        container.innerHTML="";
-      
-        var svgObject = document.createElement('object');
-        svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
-        svgObject.type = 'image/svg+xml';
-        container.appendChild(svgObject);
-
-
-        let url_API="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+provinceId;
-        let url_API_Region = "http://localhost:8080/weather.api/v1/regions/"+provinceId;
-        fetchAPI_data(url_API);
-        fetchAPI_region(url_API_Region);
-
-        svgObject.addEventListener('load', function() {
-
-          const svgDocument = svgObject.contentDocument;
-        
-
-          if (!svgDocument) {
-            console.error('Content document is null or undefined.');
-            return;
-          }
-        
-
-          const paths = svgDocument.getElementsByClassName('district');
-
-        
-          // lap qua tung path va them su kien click
-          for (const path of paths) {
-            path.style.cursor= "pointer";
-            path.addEventListener('mouseover', function(event) {
-              // alert(path.getAttribute("name"));
-              let name = path.getAttribute('name');
-              var tooltip = document.getElementById('tooltip');
-          
-              var mouseX = event.clientX + 500;
-              var mouseY = event.clientY +150;
-            
-              tooltip.style.display = 'block';
-              tooltip.style.left = mouseX + 'px';
-              tooltip.style.top = mouseY  + 'px';
-              tooltip.innerHTML=name;
-            });
-
-            path.addEventListener('mouseout', function(event){
-              var tooltip = document.getElementById('tooltip');
-              tooltip.style.display='none';
-            })
-
-            
-          }
-        });
-  
+    displayForecast(provinceId);
+    document.querySelector("#header-province").innerHTML=nameProvince;
 
   });
   modalMapclose.addEventListener("click",closeMap);
@@ -176,6 +116,109 @@ function closeMap(){
   });
 
  });
+
+ function displayForecast(provinceId){
+
+    openMap();
+    let districtId= provinceId;
+
+    provinceId = provinceId.slice(0,2);
+    //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
+    document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
+    updateFavoriteButtonInModal();
+
+    
+
+
+  
+
+    var container = document.getElementById("svg-Container");
+    container.innerHTML="";
+      
+    var svgObject = document.createElement('object');
+    svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
+    svgObject.type = 'image/svg+xml';
+    container.appendChild(svgObject);
+
+
+    let url_API="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+districtId;
+
+    console.log(url_API);
+    fetchAPI_data(url_API);
+
+
+    svgObject.addEventListener('load', function() {
+
+    const svgDocument = svgObject.contentDocument;
+    eventDetailProvince(svgDocument);
+
+          
+  });
+ }
+
+ function eventDetailProvince(svgDocument){
+  if (!svgDocument) {
+    console.error('Content document is null or undefined.');
+    return;
+  }
+
+
+  const paths = svgDocument.getElementsByClassName('district');
+
+
+  // lap qua tung path va them su kien click
+  for (const path of paths) {
+    path.style.cursor= "pointer";
+    path.addEventListener('mouseover', function(event) {
+      // alert(path.getAttribute("name"));
+      let name = path.getAttribute('name');
+      var tooltip = document.getElementById('tooltip2');
+  
+      var mouseX = event.clientX +100 ;
+      var mouseY = event.clientY +120;
+    
+      tooltip.style.display = 'block';
+      tooltip.style.left = mouseX + 'px';
+      tooltip.style.top = mouseY  + 'px';
+      tooltip.innerHTML=name;
+    });
+
+    path.addEventListener('mouseout', function(event){
+      var tooltip = document.getElementById('tooltip2');
+      tooltip.style.display='none';
+    })
+
+    path.addEventListener('click', function(event){
+      let districtId = path.getAttribute("id");
+      let districtName=path.getAttribute("name");
+      showLocationIcon(event);
+      document.querySelector("#header-province").innerHTML=districtName;
+      let url="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+districtId;
+      fetchAPI_data(url);
+      console.log(url);
+      showData();
+    })
+    
+  }
+ }
+
+ function showLocationIcon(event) {
+  let locationIcon = document.querySelector(".icon-location");
+
+  // Kiểm tra xem thẻ có tồn tại không
+  if (locationIcon) {
+
+
+    // Thiết lập vị trí của thẻ img tại vị trí xảy ra sự kiện click
+    locationIcon.style.left = event.x+ "px";
+    locationIcon.style.top = event.y+ "px";
+    
+    console.log(event.x);
+    console.log(event.y);
+    // Thiết lập style cho thẻ img để hiển thị
+    locationIcon.style.display = "flex";
+  }
+}
 
  var data;
  async function fetchAPI_data(url){
@@ -190,10 +233,12 @@ function closeMap(){
 
  }
 
+
+
  async function fetchAPI_region(url){
   const response = await fetch(url);
   let data= await response.json();
-  console.log(data.name);
+  // console.log(data.name);
   document.querySelector("#header-province").innerHTML=data.name;
  }
 
