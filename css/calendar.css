@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 .calendar-outer-container{
-  display: none;
+  
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  position: fixed;
+  position: absolute;
   z-index: 5;
   width: 450px;
   height: 439px;
   inset: 0;
-  top: 61px;
-  left: 439px;
+  top: 41px;
+  left: 453px;
+  flex-direction: column;
+  display: none;
 }
 .calendar-inner-container{
   display: flex;
@@ -103,7 +105,8 @@ header .current-date{
   transform: translate(-50%, -50%);
 }
 .days li.active::before{
-  background: #9B59B6;
+  /* background: #9B59B6; */
+  background: rgb(211, 197, 197);
 }
 .days li:not(.active):hover::before{
   background: #f2f2f2;

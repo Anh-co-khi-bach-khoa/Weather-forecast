@@ -7,6 +7,7 @@ body{
     background: rgb(211, 197, 197);
     font-family: "Tahoma", "Roboto", Helvetica, Arial, sans-serif;
 }
+
 #root{
     margin: 0;
     padding: 0;
@@ -39,7 +40,7 @@ body{
     height: 40px;
 }
 .modal-Search{
-    z-index: 5;
+    /* z-index: 5; */
     background-color: white;
     width: 400px;
     border: 1px solid transparent;
@@ -149,7 +150,7 @@ input[type=text]{
     position: relative;
     
     left: 28rem;
-    bottom: 5rem;
+    bottom: 4.5rem;
     width: 60rem;
     height: 44rem;
 }
@@ -326,8 +327,10 @@ input[type=text]{
     justify-content: center;
 }
 .favorite-menu nav{
-    width: 80%;
+    width: 96%;
+    
 }
+
 .favs-line{
     margin-top: 15px;
     margin-bottom: 25px;
@@ -346,6 +349,12 @@ input[type=text]{
     display: block;
     padding: 5px 10px;
 }
+#heart2{
+    width: 50px;
+    height: 40px;
+    transform: translateY(-4px) translateX(6px);
+    color: pink;
+}
 .favs-weather table{
     border-collapse: collapse;
     width: 100%;
@@ -360,7 +369,7 @@ input[type=text]{
 }
 .favs-weather table tbody tr td{
     color: black;
-    font-size: 9px;
+    font-size: 13px;
     text-align: center;
     text-transform: uppercase;
     /* border-right: 1px solid rgba(239,239,239,.3); */
@@ -370,7 +379,7 @@ input[type=text]{
     border: none;
 }
 .favs-weather table tbody tr td img{
-    width: 27px;
+    width: 30px;
     margin: 2px auto 2px auto;
     display: block;
 }
@@ -447,3 +456,18 @@ input[type=text]{
     display: none;
     position: absolute;
 }
+#favoriteProvincesList {
+    padding: 0;
+    list-style-type: none;
+    max-height: 450px; 
+    overflow-y: auto;
+    -ms-overflow-style: none;
+  }
+
+  #favoriteProvincesList::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  #favoriteProvincesList::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }

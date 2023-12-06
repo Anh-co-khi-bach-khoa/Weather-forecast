@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thời tiết</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="../js/app.js" defer></script>
     <script src="../js/modal.js" defer></script>
-    <!-- <script src="../js/testScript.js" defer></script> -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-    <link rel="stylesheet" href="../css/calendar.css">
     <script src="../js/calendar.js" defer></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script> -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/calendar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    
 
 </head>
 <body style="zoom: 80%;">
@@ -91,103 +92,16 @@
             <i class="fa-solid fa-xmark" id="close-Favorite"></i>
           </div>
         </div>
-        <div class="modal-body" id="modal-body-favorite">
-
-          <div class="favorite-menu">
-            <nav>
-              <ul>
-                <li class="favs-line">
-                  <div class="favs-title">
-                    <span class="favs-province-name">Đà Nẵng</span>
-                    <span class="favs-deleter"><i class="fa-regular fa-trash-can"></i></span>
-                  </div>
-                  <div class="favs-weather">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>
-                            Thu
-                            <img src="../assets/weather-icons/clear.png" alt="img">
-                            <big>27°</big>
-                          </td>
-                          <td>
-                            Fri
-                            <img src="../assets/weather-icons/rain.png" alt="img">
-                            <big>28°</big>
-                          </td>
-                          <td>
-                            Sat
-                            <img src="../assets/weather-icons/rain.png" alt="img">
-                            <big>27°</big>
-                          </td>
-                          <td>
-                            Sun
-                            <img src="../assets/weather-icons/clear.png" alt="img">
-                            <big>23°</big>
-                          </td>
-                          <td>
-                            Mon
-                            <img src="../assets/weather-icons/clouds.png" alt="img">
-                            <big>31°</big>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  
-                </li>
-                <li class="favs-line">
-                  <div class="favs-title">
-                    <span class="favs-province-name">Huế</span>
-                    <span class="favs-deleter"><i class="fa-regular fa-trash-can"></i></span>
-                  </div>
-                  <div class="favs-weather">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>
-                            Thu
-                            <img src="../assets/weather-icons/clear.png" alt="img">
-                            <big>27°</big>
-                          </td>
-                          <td>
-                            Fri
-                            <img src="../assets/weather-icons/rain.png" alt="img">
-                            <big>28°</big>
-                          </td>
-                          <td>
-                            Sat
-                            <img src="../assets/weather-icons/rain.png" alt="img">
-                            <big>27°</big>
-                          </td>
-                          <td>
-                            Sun
-                            <img src="../assets/weather-icons/clear.png" alt="img">
-                            <big>23°</big>
-                          </td>
-                          <td>
-                            Mon
-                            <img src="../assets/weather-icons/clouds.png" alt="img">
-                            <big>31°</big>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  
-                </li>
-
-
-              
-
-              </ul>
+        <div class="modal-body" id="modal-body-favorite" >
+          <div class="favorite-menu" >
+            <nav>           
+              <ul id="favoriteProvincesList"></ul>
             </nav>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="MapVietNam">
     <svg width="900" height="900"  id="svg-map" viewBox="0 0 710 710" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="vietnam_map_withID_Province" clip-path="url(#clip0_5_371)">
@@ -416,11 +330,6 @@
     </div>
 
 </div>
-
-
-
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="../js/autoCompleteSearch.js"></script>
