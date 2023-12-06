@@ -83,6 +83,7 @@ function openMap() {
       opacity: 0,
       ease: "power4.out"
   });
+  
 
   masterTimeline.add(mapTimeline, 0);
   masterTimeline.add(calendarTimeline, 0.5);
@@ -94,9 +95,65 @@ function openMap() {
 function closeMap(){
   modalMap.style.display ='none';
   modalCalendar.style.display ='none';
-  modalTable.style.display = 'none'
+  modalTable.style.display = 'none'; 
 
 }
+
+
+function commonClickFunction(provinceId) {
+  openMap();
+
+  // Update heart icon data-index attribute
+  document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
+  updateFavoriteButtonInModal();
+
+  // Clear and load SVG
+  var container = document.getElementById("svg-Container");
+  container.innerHTML = "";
+  var svgObject = document.createElement('object');
+  svgObject.data = '../assets/SVG/DetailProvince/' + provinceId + '.svg';
+  svgObject.type = 'image/svg+xml';
+  container.appendChild(svgObject);
+
+  // Fetch API data
+  let url_API = "http://localhost:8080/weather.api/v1/data/forecast/hourly/" + provinceId;
+  let url_API_Region = "http://localhost:8080/weather.api/v1/regions/" + provinceId;
+  fetchAPI_data(url_API);
+  fetchAPI_region(url_API_Region);
+
+  // Add event listener to loaded SVG
+  svgObject.addEventListener('load', function () {
+    const svgDocument = svgObject.contentDocument;
+
+    if (!svgDocument) {
+      console.error('Content document is null or undefined.');
+      return;
+    }
+
+    const paths = svgDocument.getElementsByClassName('district');
+
+    // Loop through each path and add click event
+    for (const path of paths) {
+      path.style.cursor = "pointer";
+      path.addEventListener('mouseover', function (event) {
+        let name = path.getAttribute('name');
+        var tooltip = document.getElementById('tooltip');
+        var mouseX = event.clientX + 500;
+        var mouseY = event.clientY + 150;
+        tooltip.style.display = 'block';
+        tooltip.style.left = mouseX + 'px';
+        tooltip.style.top = mouseY + 'px';
+        tooltip.innerHTML = name;
+      });
+
+      path.addEventListener('mouseout', function (event) {
+        var tooltip = document.getElementById('tooltip');
+        tooltip.style.display = 'none';
+      });
+    }
+  });
+}
+
 
 //click vao tinh tren ban do Viet Nam co the lay ra id
  document.querySelectorAll(".province").forEach((province) => {
@@ -104,73 +161,15 @@ function closeMap(){
 
   province.addEventListener("click",()=>{
 
-    openMap();
-    
     const provinceId = province.getAttribute("id");
-    //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
-    document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
-    updateFavoriteButtonInModal();
-
-    var container = document.getElementById("svg-Container");
-        container.innerHTML="";
-      
-        var svgObject = document.createElement('object');
-        svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
-        svgObject.type = 'image/svg+xml';
-        container.appendChild(svgObject);
-
-
-        let url_API="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+provinceId;
-        let url_API_Region = "http://localhost:8080/weather.api/v1/regions/"+provinceId;
-        fetchAPI_data(url_API);
-        fetchAPI_region(url_API_Region);
-
-        svgObject.addEventListener('load', function() {
-
-          const svgDocument = svgObject.contentDocument;
-        
-
-          if (!svgDocument) {
-            console.error('Content document is null or undefined.');
-            return;
-          }
-        
-
-          const paths = svgDocument.getElementsByClassName('district');
-
-        
-          // lap qua tung path va them su kien click
-          for (const path of paths) {
-            path.style.cursor= "pointer";
-            path.addEventListener('mouseover', function(event) {
-              // alert(path.getAttribute("name"));
-              let name = path.getAttribute('name');
-              var tooltip = document.getElementById('tooltip');
-          
-              var mouseX = event.clientX + 500;
-              var mouseY = event.clientY +150;
-            
-              tooltip.style.display = 'block';
-              tooltip.style.left = mouseX + 'px';
-              tooltip.style.top = mouseY  + 'px';
-              tooltip.innerHTML=name;
-            });
-
-            path.addEventListener('mouseout', function(event){
-              var tooltip = document.getElementById('tooltip');
-              tooltip.style.display='none';
-            })
-
-            
-          }
-        });
+    commonClickFunction(provinceId);
   
 
   });
   modalMapclose.addEventListener("click",closeMap);
   modalMap.addEventListener("click", function(e){
     if (e.target == e.currentTarget){
-      closeMap()
+      closeMap();
       
     }
   });
@@ -246,12 +245,15 @@ for(var i=0; i<=10; i++){
 
  function likeToggle(){
       const curentProvince = document.querySelector("#heart-icon").getAttribute("data-index");
+      const currentProvinceName = document.querySelector('#header-province').textContent;
       let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
 
-      const isFavorite = favoriteList.includes(curentProvince);
+      // const isFavorite = favoriteList.includes(curentProvince);
+      const isFavorite = favoriteList.some(item => item.id === curentProvince)
 
       if (!isFavorite){
-          favoriteList.push(curentProvince);
+          // favoriteList.push(curentProvince);
+          favoriteList.push({id:curentProvince, name: currentProvinceName})
 
           localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
           alert(`${curentProvince} added to favorite list!`);
@@ -259,7 +261,7 @@ for(var i=0; i<=10; i++){
           
       }
       else{
-          favoriteList = favoriteList.filter(item => item !== curentProvince);
+          favoriteList = favoriteList.filter(item => item.id !== curentProvince);
           localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
           alert(`${curentProvince} removed from favorite list!`);
           updateFavoriteButtonInModal();
@@ -270,14 +272,108 @@ for(var i=0; i<=10; i++){
 function updateFavoriteButtonInModal(){
       const curentProvince = document.querySelector("#heart-icon").getAttribute("data-index");
       let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
-      const isFavorite = favoriteList.includes(curentProvince);
+      // const isFavorite = favoriteList.includes(curentProvince);
+      const isFavorite = favoriteList.some(item => item.id === curentProvince)
       var heartIcon = document.querySelector("#heart-icon");
       if (isFavorite){
         heartIcon.style.color = "pink";
+        updateFavoriteProvincesList();
       
       }else{
         heartIcon.style.color = "grey";
+        updateFavoriteProvincesList();
       }
-
-
 }
+
+async function fetchAPI_data_daily(url) {
+  const response = await fetch(url);
+  var json_data = await response.json();
+
+  data = json_data.data;
+}
+
+async function updateFavoriteProvincesList() {
+  let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
+  const favoriteProvincesListElement = document.getElementById('favoriteProvincesList');
+
+  const shortDoW = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  let shortDA = new Array();
+
+  for (var i = 0; i <= 4; i++) {
+    var day = new Date();
+    day.setDate(day.getDate() + i);
+    var weekday = day.getDay();
+    var st = shortDoW[weekday];
+    shortDA.push(st);
+  }
+
+
+ const html = await Promise.all(favoriteList.map(async(item) => {
+  const currentDate = new Date();
+    const startDate = currentDate.toISOString().split('T')[0];
+    const endDate = new Date(currentDate.getTime() + 4 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('T')[0];
+      const url_API_daily = `http://localhost:8080/weather.api/v1/data/forecast/daily/${item.id}?start_date=${startDate}&end_date=${endDate}`;
+
+    await fetchAPI_data_daily(url_API_daily);
+
+
+    return `
+    <li class="favs-line">
+      <div class="favs-title">
+        <span><i class="fa-solid fa-heart" id="heart2"></i></span>
+        <span class="favs-province-name" onclick="testHeader(${item.id})" style="cursor:pointer;">${item.name }</span>   
+        <span class="favs-deleter" onclick="removeFavorite(${item.id})"><i class="fa-regular fa-trash-can" style="cursor: pointer;"></i></span>
+      </div>
+      <div class="favs-weather">
+        <table>
+          <tbody>
+            <tr>
+              ${shortDA.map((day, index) => `
+                <td>
+                  ${day}
+                  <img src="${data[index].Icon}" alt="img">
+                    <big>${data[index].Temp}°</big>
+                </td>
+              `).join('')}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </li>`;
+  }));
+
+  favoriteProvincesListElement.innerHTML = html.join('');
+}
+
+
+function removeFavorite(id) {
+  let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
+
+  const indexToRemove = favoriteList.findIndex(item => item.id === String(id));
+  
+
+  if (indexToRemove !== -1) {
+    console.log(`Removing item with id: ${id}`);
+    favoriteList.splice(indexToRemove, 1);
+    localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
+    alert(`${id} removed from favorite list!`);
+    updateFavoriteProvincesList();
+
+  } else {
+    console.log(`Item with id ${id} not found.`);
+    // console.log(indexToRemove);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateFavoriteProvincesList();
+});
+
+
+function testHeader(provinceId){
+  // console.log(provinceId);
+  commonClickFunction(provinceId);
+}
+
