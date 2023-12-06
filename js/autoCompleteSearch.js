@@ -39,6 +39,7 @@ function display(result){
 function select(li){
     let nameProvince=li.innerHTML;
     myArray=nameProvince.split(",");
+    document.querySelector("#header-province").innerHTML=nameProvince;
     if(myArray.length==1){
         displayForecast(li.id,myArray[0]);    
     }else{
