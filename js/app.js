@@ -122,8 +122,8 @@ function closeMap(){
  function displayForecast(provinceId){
 
     openMap();
+    provinceId = provinceId.toString();
     let districtId= provinceId;
-
     provinceId = provinceId.slice(0,2);
     //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
     document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
@@ -371,7 +371,7 @@ async function updateFavoriteProvincesList() {
     <li class="favs-line">
       <div class="favs-title">
         <span><i class="fa-solid fa-heart" id="heart2"></i></span>
-        <span class="favs-province-name" onclick="testHeader(${item.id})" style="cursor:pointer;">${item.name }</span>   
+        <span class="favs-province-name" onclick="testHeader(${item.id}, '${item.name}')" style="cursor:pointer;">${item.name }</span>   
         <span class="favs-deleter" onclick="removeFavorite(${item.id})"><i class="fa-regular fa-trash-can" style="cursor: pointer;"></i></span>
       </div>
       <div class="favs-weather">
@@ -420,8 +420,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function testHeader(provinceId){
+function testHeader(provinceId, provinceName){
   // console.log(provinceId);
   displayForecast(provinceId);
+  document.querySelector("#header-province").innerHTML=provinceName;
 }
 
