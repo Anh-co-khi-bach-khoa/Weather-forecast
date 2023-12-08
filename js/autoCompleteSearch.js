@@ -39,12 +39,17 @@ function display(result){
 function select(li){
     let nameProvince=li.innerHTML;
     myArray=nameProvince.split(",");
-    document.querySelector("#header-province").innerHTML=nameProvince;
+    document.querySelector("#header-province").innerHTML=myArray[0];
+    // provinceName_global= document.getElementById(li.id).getAttribute("name");
+
     if(myArray.length==1){
-        displayForecast(li.id,myArray[0]);    
+        provinceName_global=myArray[0];
     }else{
-        displayForecast(li.id,myArray[1]);
+        provinceName_global=myArray[1];
     }
+    displayForecast(li.id);
+    console.log(li.id);    
+    
     inputBox.value=li.innerHTML;
     resultBox.innerHTML='';
 }

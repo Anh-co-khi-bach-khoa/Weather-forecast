@@ -149,8 +149,8 @@ input[type=text]{
 #root .MapVietNam .map-overlay .map-outer-box{
     position: relative;
     
-    left: 28rem;
-    bottom: 4.5rem;
+    left: 26rem;
+    bottom: 6rem;
     width: 60rem;
     height: 44rem;
 }
@@ -459,7 +459,7 @@ input[type=text]{
 #favoriteProvincesList {
     padding: 0;
     list-style-type: none;
-    max-height: 450px; 
+    max-height: 300px; 
     overflow-y: auto;
     -ms-overflow-style: none;
   }
@@ -471,3 +471,28 @@ input[type=text]{
   #favoriteProvincesList::-webkit-scrollbar-thumb {
     background-color: transparent;
   }
+
+  #close-calendar{
+    cursor: pointer;
+    transform: translateX(40px) translateY(40px);
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+#close-calendar:hover {
+  background-color: rgb(170, 170, 170);
+}
+.modal-wrap{
+    display: flex;
+    flex-direction: row;
+}
+#btnCalendar{
+    display: none;
+    transform: translateX(450px) translateY(100px) rotate(-90deg);
+    height: 40px;
+    width: 100px;
+    position: relative;
+    /* left:850px;
+    top: 100px; */
+}

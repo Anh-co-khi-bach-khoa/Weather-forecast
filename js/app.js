@@ -1,30 +1,5 @@
-gsap.set (".province", {scale:1});
 
-document.querySelectorAll(".province").forEach((province)=>{
-  province.addEventListener("mouseover", (event)=>{
-    gsap.to(province, {scale: 1.15, duration:0.5});
-    province.style.fillOpacity = "1";
-    let name = province.getAttribute('name');
-    var tooltip = document.getElementById('tooltip1');
-
-    var mouseX = event.clientX-360;
-    var mouseY = event.clientY +50;
-  
-    tooltip.style.display = 'block';
-    tooltip.style.left = mouseX + 'px';
-    tooltip.style.top = mouseY  + 'px';
-    tooltip.innerHTML=name;
-
-  })
-  province.addEventListener("mouseout", ()=>{
-    gsap.to(province, {scale:1, duration:0.5});
-    province.style.fillOpacity = "0.56";
-    var tooltip = document.getElementById('tooltip1');
-    tooltip.style.display='none';
-  })
-  
-});
-
+// import {openMap, closeMap,modalMap,modalMapclose,modalCalendar,modalTable} from './mapHandler.js';
 
 var modalMap = document.querySelector('.map-overlay')
 var modalMapclose = document.querySelector('.close-div i')
@@ -61,10 +36,10 @@ function openMap() {
   });
 
   let calendarTimeline = gsap.timeline();
-  calendarTimeline.to(".calendar-outer-container", {
+  calendarTimeline.to("#btnCalendar", {
     display: "flex"
   });
-  calendarTimeline.from(".calendar-outer-container", {
+  calendarTimeline.from("#btnCalendar", {
       duration: 0.5,
       opacity: 0,
       ease: "power4.out"
@@ -95,15 +70,42 @@ function closeMap(){
 
 }
 
+var data;
+gsap.set (".province", {scale:1});
 
-//click vao tinh tren ban do Viet Nam co the lay ra id
- document.querySelectorAll(".province").forEach((province) => {
+document.querySelectorAll(".province").forEach((province)=>{
+    province.addEventListener("mouseover", (event)=>{
+    gsap.to(province, {scale: 1.15, duration:0.5});
+    province.style.fillOpacity = "1";
+    let name = province.getAttribute('name');
+    var tooltip = document.getElementById('tooltip1');
+
+    var mouseX = event.clientX-360;
+    var mouseY = event.clientY +50;
+
+    tooltip.style.display = 'block';
+    tooltip.style.left = mouseX + 'px';
+    tooltip.style.top = mouseY  + 'px';
+    tooltip.innerHTML=name;
+
+})
+province.addEventListener("mouseout", ()=>{
+    gsap.to(province, {scale:1, duration:0.5});
+    province.style.fillOpacity = "0.56";
+    var tooltip = document.getElementById('tooltip1');
+    tooltip.style.display='none';
+})
+
+});
+var provinceName_global;
+document.querySelectorAll(".province").forEach((province) => {
 
 
   province.addEventListener("click",()=>{
 
     const provinceId = province.getAttribute("id");
     const nameProvince= province.getAttribute("name");
+    provinceName_global=nameProvince;
     //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
     displayForecast(provinceId);
     document.querySelector("#header-province").innerHTML=nameProvince;
@@ -121,49 +123,46 @@ function closeMap(){
 
  function displayForecast(provinceId){
 
-    openMap();
-    provinceId = provinceId.toString();
-    let districtId= provinceId;
-    provinceId = provinceId.slice(0,2);
-    //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
-    document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
-    updateFavoriteButtonInModal();
+  openMap();
+  provinceId = provinceId.toString();
+  let districtId= provinceId;
+  provinceId = provinceId.slice(0,2);
+  //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
+  document.querySelector("#heart-icon").setAttribute("data-index", districtId);
+  updateFavoriteButtonInModal();
 
-    
-
-
-  
-
-    var container = document.getElementById("svg-Container");
-    container.innerHTML="";
-      
-    var svgObject = document.createElement('object');
-    svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
-    svgObject.type = 'image/svg+xml';
-    container.appendChild(svgObject);
+  var container = document.getElementById("svg-Container");
+  container.innerHTML="";
+  var svgObject = document.createElement('object');
+  svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
+  svgObject.type = 'image/svg+xml';
+  container.appendChild(svgObject);
 
 
-    let url_API="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+districtId;
+  let url_API="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+districtId;
 
-    console.log(url_API);
-    fetchAPI_data(url_API);
+  console.log(url_API);
+  fetchAPI_data(url_API);
 
 
-    svgObject.addEventListener('load', function() {
+  svgObject.addEventListener('load', function() {
 
-    const svgDocument = svgObject.contentDocument;
-    eventDetailProvince(svgDocument);
+  const svgDocument = svgObject.contentDocument;
+  eventDetailProvince(svgDocument);
 
-          
-  });
- }
+        
+});
+}
+
+
+
+
 
  function eventDetailProvince(svgDocument){
   if (!svgDocument) {
     console.error('Content document is null or undefined.');
     return;
   }
-
 
   const paths = svgDocument.getElementsByClassName('district');
 
@@ -190,39 +189,63 @@ function closeMap(){
       tooltip.style.display='none';
     })
 
-    path.addEventListener('click', function(event){
+    path.addEventListener('click', function(){
       let districtId = path.getAttribute("id");
       let districtName=path.getAttribute("name");
-      showLocationIcon(event);
+
+      strokeWidth(path,paths);
       document.querySelector("#header-province").innerHTML=districtName;
+      document.querySelector("#heart-icon").setAttribute("data-index", districtId);
+      updateFavoriteButtonInModal();
+      document.querySelector('.data-table').innerHTML = "";
       let url="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+districtId;
       fetchAPI_data(url);
       console.log(url);
-      showData();
+
+    })
+
+    path.addEventListener("contextmenu",function(event){
+      event.preventDefault();
+      rightMouseClick(path);
+      let provinceId = document.querySelector("#heart-icon").getAttribute("data-index").slice(0,2);
+      document.querySelector("#heart-icon").setAttribute("data-index", provinceId);
+      updateFavoriteButtonInModal();
+      document.querySelector('.data-table').innerHTML = "";
+      let url="http://localhost:8080/weather.api/v1/data/forecast/hourly/"+provinceId;
+      fetchAPI_data(url);
+      console.log(url);
+
     })
     
   }
  }
 
- function showLocationIcon(event) {
-  let locationIcon = document.querySelector(".icon-location");
+ 
 
-  // Kiểm tra xem thẻ có tồn tại không
-  if (locationIcon) {
+ function strokeWidth(path,allDistrict){
 
 
-    // Thiết lập vị trí của thẻ img tại vị trí xảy ra sự kiện click
-    locationIcon.style.left = event.x+ "px";
-    locationIcon.style.top = event.y+ "px";
-    
-    console.log(event.x);
-    console.log(event.y);
-    // Thiết lập style cho thẻ img để hiển thị
-    locationIcon.style.display = "flex";
+  for(const district of allDistrict){
+    if(path.getAttribute("id") === district.getAttribute("id")){
+      // displayForecast(path.getAttribute("id"));
+      path.setAttribute("stroke-width",3);
+      path.setAttribute("stroke", "#000000");
+      path.setAttribute("stroke-opacity",1);
+    }else{
+      rightMouseClick(district);
+    }
   }
-}
 
- var data;
+ }
+
+ function rightMouseClick(district){
+  document.querySelector("#header-province").innerHTML=provinceName_global;
+  district.setAttribute("stroke-width",1);
+  district.setAttribute("stroke", "#0000FF");
+  district.setAttribute("stroke-opacity",0.4)
+ }
+
+
  async function fetchAPI_data(url){
 
   const response = await fetch(url);
@@ -258,6 +281,7 @@ for(var i=0; i<=10; i++){
 
 //hien thi du lieu vao bang
  function showData(){
+
   let colspan=[];
   let count =0;
 
@@ -290,8 +314,10 @@ for(var i=0; i<=10; i++){
     document.querySelector('.data-table').innerHTML = html;
   };
 
+  
 
- function likeToggle(){
+
+function likeToggle(){
       const curentProvince = document.querySelector("#heart-icon").getAttribute("data-index");
       const currentProvinceName = document.querySelector('#header-province').textContent;
       let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];

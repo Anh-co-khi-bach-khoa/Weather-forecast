@@ -8,12 +8,12 @@ function toggleModal1(e){
     modal1.classList.toggle('hidden');
 }
 function showModal1(){
-    document.getElementById("btn1").style.display ='none';
+    document.getElementById("btn-Search").style.display ='none';
     document.getElementById("svg1").style.display ='none';
     document.getElementById("Map-button").style.display ='none';
 }
 function closeModal1(){
-    document.getElementById("btn1").style.display ='block';
+    document.getElementById("btn-Search").style.display ='block';
     document.getElementById("svg1").style.display ='block';
     document.getElementById("Map-button").style.display ='block';
 
@@ -37,12 +37,12 @@ function toggleModal2(e){
     modal2.classList.toggle('hidden');
 }
 function showModal2(){
-    document.getElementById("btn2").style.display ='none';
+    document.getElementById("btn-Favorite").style.display ='none';
     document.getElementById("svg2").style.display ='none';
     document.getElementById("Favorite-button").style.display ='none';
 }
 function closeModal2(){
-    document.getElementById("btn2").style.display ='block';
+    document.getElementById("btn-Favorite").style.display ='block';
     document.getElementById("svg2").style.display ='block';
     document.getElementById("Favorite-button").style.display ='block';
 }
@@ -53,3 +53,21 @@ iconCloseFavorite.addEventListener('click',toggleModal2);
 iconCloseFavorite.addEventListener('click',closeModal2);
 
 
+var btnOpenCalendar = document.querySelector('#btnCalendar');
+var modalCalendar = document.querySelector('.calendar-outer-container');
+var iconCloseCalendar = document.querySelector('#close-calendar');
+function showModal3(){
+    document.getElementById("btnCalendar").style.display ='none';
+    document.querySelector('.calendar-outer-container').style.display = 'flex';
+}
+function closeModal3(){
+    document.getElementById("btnCalendar").style.display ='flex';
+    document.querySelector('.calendar-outer-container').style.display = 'none';
+}
+btnOpenCalendar.addEventListener('click',modal3Handler);
+iconCloseCalendar.addEventListener('click',closeModal3);
+
+function modal3Handler(){
+    if (modalCalendar.style.display === 'none') modalCalendar.style.display = 'flex';
+    else modalCalendar.style.display = 'none'; 
+}
