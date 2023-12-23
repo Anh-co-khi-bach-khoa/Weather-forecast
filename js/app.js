@@ -1,16 +1,11 @@
 
-// import {openMap, closeMap,modalMap,modalMapclose,modalCalendar,modalTable} from './mapHandler.js';
 
 var modalMap = document.querySelector('.map-overlay')
 var modalMapclose = document.querySelector('.close-div i')
 var modalCalendar = document.querySelector('.calendar-outer-container')
 var modalTable = document.querySelector('.table')
 
-// function openMap(){
-//     // modalMap.style.display = 'flex';
-//     // modalCalendar.style.display ='flex';
-//     // modalTable.style.display = 'flex'
-// }
+
 function openMap() {
   let masterTimeline = gsap.timeline();
 
@@ -73,6 +68,7 @@ function closeMap(){
 var data;
 gsap.set (".province", {scale:1});
 
+//thiet lap su kien mouseover cho tung tinh
 document.querySelectorAll(".province").forEach((province)=>{
     province.addEventListener("mouseover", (event)=>{
     gsap.to(province, {scale: 1.15, duration:0.5});
@@ -98,6 +94,7 @@ province.addEventListener("mouseout", ()=>{
 
 });
 var provinceName_global;
+//thiet lap su kien click cho tung tinh
 document.querySelectorAll(".province").forEach((province) => {
 
 
@@ -121,6 +118,7 @@ document.querySelectorAll(".province").forEach((province) => {
 
  });
 
+//hien thi cac modal khi click vao mot tinh
  function displayForecast(provinceId){
 
   openMap();
@@ -154,10 +152,7 @@ document.querySelectorAll(".province").forEach((province) => {
 });
 }
 
-
-
-
-
+//set su kien cho tung huyen trong tinh
  function eventDetailProvince(svgDocument){
   if (!svgDocument) {
     console.error('Content document is null or undefined.');
@@ -221,7 +216,7 @@ document.querySelectorAll(".province").forEach((province) => {
  }
 
  
-
+//viền đậm khi chọn huyện
  function strokeWidth(path,allDistrict){
 
 
@@ -238,6 +233,7 @@ document.querySelectorAll(".province").forEach((province) => {
 
  }
 
+ //bỏ viền đậm
  function rightMouseClick(district){
   document.querySelector("#header-province").innerHTML=provinceName_global;
   district.setAttribute("stroke-width",1);
@@ -245,7 +241,7 @@ document.querySelectorAll(".province").forEach((province) => {
   district.setAttribute("stroke-opacity",0.4)
  }
 
-
+//fetch api lưu dữ liệu vào data theo giờ
  async function fetchAPI_data(url){
 
   const response = await fetch(url);
@@ -259,18 +255,10 @@ document.querySelectorAll(".province").forEach((province) => {
  }
 
 
-
- async function fetchAPI_region(url){
-  const response = await fetch(url);
-  let data= await response.json();
-  // console.log(data.name);
-  document.querySelector("#header-province").innerHTML=data.name;
- }
-
 var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 let day_after = new Array();
 
-for(var i=0; i<=10; i++){
+for(var i=0; i<=5; i++){
   var day = new Date();
   day.setDate(day.getDate()+i);
   var weekday = day.getDay();
@@ -286,7 +274,7 @@ for(var i=0; i<=10; i++){
   let count =0;
 
   data.forEach((x,index,array) =>{
-    if(x.TimeForecasted.split('T')[1].split(':')[0]=="00") {
+    if(x.TimeForecasted.split(' ')[1].split(':')[0]=="00") {
       colspan.push(count);
       count=0;
     }
@@ -303,9 +291,9 @@ for(var i=0; i<=10; i++){
     ${colspan.map((x)=>`<th colspan='${x}'  style="border-bottom: 1px solid #ccc; white-space:nowrap;"> ${day_after[i++]} </th>`).join('')}
     </tr></thead>
     <tbody>
-      <tr>${data.map((x)=>`<td> ${x.TimeForecasted.split('T')[1].split(':')[0]} </td>`).join('')}</tr>
-      <tr>${data.map((x)=>`<td><img src="${x.Icon}" alt="" style="max-width:100%; height:33px;display:block; margin:auto;">`).join('')}</tr>
-      <tr>${data.map((x)=>`<td>${x.Temp}`).join('')}</tr>
+      <tr>${data.map((x)=>`<td> ${x.TimeForecasted.split(' ')[1].split(':')[0]} </td>`).join('')}</tr>
+      <tr>${data.map((x)=>`<td><img src="${x.Icon}" alt="" style="max-width:100%; height:50px;display:block; margin:auto;">`).join('')}</tr>
+      <tr>${data.map((x)=>`<td>${x.Temp.toFixed(2)}`).join('')}</tr>
       <tr>${data.map((x)=>`<td>${x.Wind}`).join('')}</tr>
       <tr>${data.map((x)=>`<td>${x.Cloud}`).join('')}</tr>
       <tr>${data.map((x)=>`<td>${x.Precip.toFixed(2)}`).join('')}</tr>
@@ -316,7 +304,7 @@ for(var i=0; i<=10; i++){
 
   
 
-
+//cập nhật data trong local storage
 function likeToggle(){
       const curentProvince = document.querySelector("#heart-icon").getAttribute("data-index");
       const currentProvinceName = document.querySelector('#header-province').textContent;
@@ -330,19 +318,20 @@ function likeToggle(){
           favoriteList.push({id:curentProvince, name: currentProvinceName})
 
           localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
-          alert(`${curentProvince} added to favorite list!`);
+          // alert(`${curentProvince} added to favorite list!`);
           updateFavoriteButtonInModal();
           
       }
       else{
           favoriteList = favoriteList.filter(item => item.id !== curentProvince);
           localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
-          alert(`${curentProvince} removed from favorite list!`);
+          // alert(`${curentProvince} removed from favorite list!`);
           updateFavoriteButtonInModal();
       }
   
 }
 
+//cập nhật trạng thái heart icon trong modal
 function updateFavoriteButtonInModal(){
       const curentProvince = document.querySelector("#heart-icon").getAttribute("data-index");
       let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
@@ -359,6 +348,7 @@ function updateFavoriteButtonInModal(){
       }
 }
 
+//fetch api theo ngày
 async function fetchAPI_data_daily(url) {
   const response = await fetch(url);
   var json_data = await response.json();
@@ -366,6 +356,7 @@ async function fetchAPI_data_daily(url) {
   data = json_data.data;
 }
 
+//Cập nhật thời tiết trong modal favorite
 async function updateFavoriteProvincesList() {
   let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
   const favoriteProvincesListElement = document.getElementById('favoriteProvincesList');
@@ -421,7 +412,7 @@ async function updateFavoriteProvincesList() {
   favoriteProvincesListElement.innerHTML = html.join('');
 }
 
-
+//sự kiện nút xóa favorite
 function removeFavorite(id) {
   let favoriteList = JSON.parse(localStorage.getItem('favoriteList')) || [];
 
@@ -432,7 +423,7 @@ function removeFavorite(id) {
     console.log(`Removing item with id: ${id}`);
     favoriteList.splice(indexToRemove, 1);
     localStorage.setItem('favoriteList', JSON.stringify(favoriteList));
-    alert(`${id} removed from favorite list!`);
+    // alert(`${id} removed from favorite list!`);
     updateFavoriteProvincesList();
 
   } else {

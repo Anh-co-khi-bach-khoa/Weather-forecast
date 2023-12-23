@@ -1,74 +1,32 @@
 <!DOCTYPE html>
 <html>
-<style>
-.tooltip {
-  position: relative;
-  display: inline-block;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<body >
+  <div style="margin-top: 100px;">
 
-}
+    <canvas id="myChart" style="width:100%;max-width:700px;"></canvas>
+    
+  </div>
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  top: 100%;
-  left: 50%;
-  margin-left: -60px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
-.icon-location{
-    font-size: 15px;
-    width: 30px;
-    height: 30px;
-    display: none;
-    z-index: 30;
-    position: fixed;
-}
-</style>
-<body style="text-align:center;">
-
-<div class="tooltip">Hover over me
-  <span class="tooltiptext">Tooltip text</span>
-</div>
-
-<img class="icon-location" src="../assets/images/location.png" alt=""> 
 
 <script>
+const xValues = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
 
-document.addEventListener("click", function(event){
-  let locationIcon = document.querySelector(".icon-location");
-
-// Kiểm tra xem thẻ có tồn tại không
-if (locationIcon) {
-
-
-  // Thiết lập vị trí của thẻ img tại vị trí xảy ra sự kiện click
-  locationIcon.style.left = event.clientX + "px";
-  locationIcon.style.top = event.clientY + "px";
-  
-  console.log(locationIcon.style.left);
-  console.log(locationIcon.style.top);
-  // Thiết lập style cho thẻ img để hiển thị
-  locationIcon.style.display = "flex";
-}
-})
-
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{ 
+      data: [21.5,19.5,25.4,24.4,23.5,22.4,23.3,26.2,30.1,29.5,29.3,26.6,21.5,19.5,25.4,24.4,23.5,22.4,23.3,26.2,30.1,29.5,29.3,26.6,29.5,29.3,26.6,21.5,19.5,25.4],
+      borderColor: "red",
+      fill: false
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 0, max:40}}],
+      }
+  }
+});
 </script>
-
-
-</body>
-</html>
-
-
