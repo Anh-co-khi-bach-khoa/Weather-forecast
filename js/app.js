@@ -5,6 +5,7 @@ var modalMap = document.querySelector('.map-overlay')
 var modalMapclose = document.querySelector('.close-div i')
 var modalCalendar = document.querySelector('.calendar-outer-container')
 var modalTable = document.querySelector('.table')
+var modalChart = document.querySelector('.chart-outer-container')
 
 // function openMap(){
 //     // modalMap.style.display = 'flex';
@@ -67,6 +68,7 @@ function closeMap(){
   modalMap.style.display ='none';
   modalCalendar.style.display ='none';
   modalTable.style.display = 'none'; 
+  modalChart.style.display = 'none';
 
 }
 

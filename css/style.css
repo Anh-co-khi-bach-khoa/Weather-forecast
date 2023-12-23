@@ -496,3 +496,105 @@ input[type=text]{
     /* left:850px;
     top: 100px; */
 }
+
+.chart-outer-container{
+    position: absolute;
+
+    display: none;
+
+    /* transform: translateX(1rem); */
+    left: 1%;
+    top:3%;
+    width: 62rem;
+    height: 49rem;
+    
+
+}
+.chart-inner-container{
+    /* z-index: 5; */
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    padding: 20px;
+}
+
+
+
+
+input[type="radio"]{
+    -webkit-appearance: none;
+}
+.lbChart{
+    box-sizing: border-box;
+    height: 50px;
+    width: 50px;
+    border: none;
+    position: relative;
+    margin:0px 50px;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;transition: 0.5s ;
+}
+
+.field-choice{
+    justify-content: center;
+    height: 100px;
+    display: flex;
+}
+.field-choice .lbChart .fa{
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+
+    
+}
+label> span{
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 80%);
+    
+}
+.chart-main-container{
+    transform: translateY(50px);
+    text-align: center;
+}
+
+input[type="radio"]:checked + label{
+    background-color:  pink;
+    color: white;
+}
+
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .chart-outer-container{
+    display: none;
+      animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes chartFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .chart-wrapper{
+    display: none;
+    /* animation: chartFadeIn 2s ease-out 2s; */
+  }
