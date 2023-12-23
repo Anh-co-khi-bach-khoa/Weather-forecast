@@ -71,3 +71,23 @@ function modal3Handler(){
     if (modalCalendar.style.display === 'none') modalCalendar.style.display = 'flex';
     else modalCalendar.style.display = 'none'; 
 }
+
+
+var btnOpenChart = document.querySelector("#chart-icon");
+
+function modal4Handler(){
+    if (document.querySelector('.chart-outer-container').style.display === 'none') 
+    {   document.querySelector('.chart-outer-container').style.animation ='fadeIn 0.5s ease-out forwards';
+    setTimeout(function () {
+        document.querySelector('.chart-wrapper').style.animation = 'chartFadeIn 0.5s ease-out forwards';
+        document.querySelector('.chart-wrapper').style.display = 'block';
+      }, 500);
+        document.querySelector('.chart-outer-container').style.display = 'block';
+    // document.querySelector('.chart-wrapper').style.display = 'block'
+}
+    else {document.querySelector('.chart-outer-container').style.display = 'none'; 
+    document.querySelector('.chart-wrapper').style.display = 'none'}
+
+}
+
+

@@ -235,6 +235,10 @@
                   <div class="heart-icon">
                     <i onclick="likeToggle()"  class="fa-solid fa-heart" id="heart-icon" data-index=""></i>
                   </div>
+                  <div>                   
+                      <i class="fa-solid fa-chart-line" id="chart-icon" data-index="" style="transform: translateX(50px);" onclick="modal4Handler()" ></i>
+                  </div>
+                  
                   <h2 id="header-province">Province name</h2>
                 </div>
                 
@@ -335,6 +339,30 @@
 
     </div>
 
+</div>
+
+<div class="chart-outer-container">
+  <div class="chart-inner-container">
+    <div class="chart-wrapper">
+      <h2 style="text-align: center;"">Chart</h2>
+      <div class="field-choice">
+        <input type="radio" name="chart-choice" id="cc-temp" checked>
+        <label for="cc-temp" class="lbChart"><i class="fa fa-solid fa-temperature-three-quarters"></i><span>Temprature</span></label>
+  
+        <input type="radio" name="chart-choice" id="cc-wind">
+        <label for="cc-wind" class="lbChart"><i class="fa fa-solid fa-wind"></i><span>Wind</span></label>
+  
+        <input type="radio" name="chart-choice" id="cc-cloud">
+        <label for="cc-cloud" class="lbChart"><i class="fa fa-solid fa-cloud"></i><span>Cloud</span></label>
+  
+        <input type="radio" name="chart-choice" id="cc-rain">
+        <label for="cc-rain" class="lbChart"><i class="fa fa-solid fa-cloud-rain"></i><span>Rain</span></label>
+      </div>
+      <div class="chart-main-container">
+        <img src="https://canvasjs.com/wp-content/uploads/images/gallery/javascript-charts/overview/javascript-charts-graphs-index-data-label.png" alt="chart">
+      </div></div>
+    
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
