@@ -32,12 +32,12 @@
       <div class="modal_inner-Search" id="inner2">
         <div class="modal_header">
           <div class="search-bar">
-            <form autocomplete="off" action="/" method="post">
+            <div>
               <button class="btn-icon-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
               <input class="search-bar_input" type="text" placeholder="Type a name..." maxlength="30"> 
-            </form>
+            </div>
           </div>
           <div class="close">
             <i class="fa-solid fa-xmark" id="close-Search"></i>
@@ -45,14 +45,6 @@
           
         </div>
         <div class="modal_body" style="height: 300px; overflow-y: scroll;">
-          <!-- Nơi để hiển thị thông tin đề xuất cho việc tìm kiếm, css overflow-y-->
-          <!-- Yêu cầu: + Mỗi đề xuất sẽ chứa một id tương ứng với vùng đó (sự kiện keyup, sẽ fetchAPI lấy dữ
-                        liệu ngay khi trang web được load lên) -->
-          <!--          + Thông tin của một đề xuất "tên Tỉnh hoặc tên Huyện-Tỉnh" -->
-          <!--          + Sự kiện xảy ra khi click vào một đề xuất -->
-          <!--          + Khi Sự kiện "nhấn vào nút Search" xảy ra thì sẽ tự động lấy đề xuất nằm ở vị trí đầu tiên -->
-          <!-- Thứ cần thiết khi fetchAPI: + Dữ liệu cần từ API: id, province, district -->
-          <!--                             + Nếu kết quả đề xuất "tỉnh" thì id là của tỉnh, nếu là "tỉnh-huyện" thì id là của huyện -->
             <div class="result-box">
 
             </div>
@@ -252,6 +244,9 @@
       </div>
      
     </div>
+  </div>
+  <div style="margin-left: 1361px; position: fixed;z-index: -1;">
+    <img style="width: 300px;" src="../assets/images/logo.png" alt="">
   </div>
 </div>
 <div class="calendar-outer-container">

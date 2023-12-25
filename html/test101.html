@@ -5,11 +5,18 @@
   <div style="margin-top: 100px;">
 
     <canvas id="myChart" style="max-width:420px; margin: auto;"></canvas>
-    
+    <input type="text" name="" id="aggg">
   </div>
 
 
 <script>
+
+document.getElementById("aggg").addEventListener('keyup', function(event){
+  if(event.keyCode===13){
+    alert("abc");
+  }
+})
+
 const xValues = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
 
 new Chart("myChart", {

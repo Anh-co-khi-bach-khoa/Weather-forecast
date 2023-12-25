@@ -180,6 +180,8 @@ document.querySelectorAll(".province").forEach((province) => {
 });
 }
 
+window.displayForecast = displayForecast;
+
 //set su kien cho tung huyen trong tinh
  function eventDetailProvince(svgDocument){
   if (!svgDocument) {

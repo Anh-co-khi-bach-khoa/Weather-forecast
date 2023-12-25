@@ -1,4 +1,3 @@
-document.write('<script type="text/HTML" src="app.js"></script>');
 
 let url_api_region = "http://localhost:8080/weather.api/v1/regions";
 let data_region;
@@ -15,7 +14,7 @@ fetchAPI_search(url_api_region);
 let resultBox= document.querySelector(".result-box");
 let inputBox = document.querySelector(".search-bar_input");
 
-inputBox.addEventListener('keyup', function(){
+inputBox.addEventListener('keyup', function(event){
     let result=[];
     let input = inputBox.value;
 
@@ -26,8 +25,16 @@ inputBox.addEventListener('keyup', function(){
         display(result);
     }
 
+    if (event.keyCode === 13) {
+
+        if (result.length > 0) {
+            select(document.querySelector('.result-box li'));
+
+        }
+    }
+
     if(!result.length){
-        resultBox.innerHTML='';
+        resultBox.innerHTML=`<p style="text-align: center; color: rgb(144, 153, 161);"> No result match</p>`;
     }
 })
 
