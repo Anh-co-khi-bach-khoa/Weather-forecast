@@ -189,7 +189,6 @@ document.querySelectorAll(".province").forEach((province) => {
     path.addEventListener('click', function(){
       let districtId = path.getAttribute("id");
       let districtName=path.getAttribute("name");
-
       strokeWidth(path,paths);
       document.querySelector("#header-province").innerHTML=districtName;
       document.querySelector("#heart-icon").setAttribute("data-index", districtId);
@@ -220,7 +219,7 @@ document.querySelectorAll(".province").forEach((province) => {
  
 //viền đậm khi chọn huyện
  function strokeWidth(path,allDistrict){
-
+  document.querySelector('.chart-outer-container').style.display='none';
 
   for(const district of allDistrict){
     if(path.getAttribute("id") === district.getAttribute("id")){

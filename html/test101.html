@@ -4,7 +4,7 @@
 <body >
   <div style="margin-top: 100px;">
 
-    <canvas id="myChart" style="width:100%;max-width:700px;"></canvas>
+    <canvas id="myChart" style="max-width:420px; margin: auto;"></canvas>
     
   </div>
 
@@ -25,7 +25,8 @@ new Chart("myChart", {
   options: {
     legend: {display: false},
     scales: {
-      yAxes: [{ticks: {min: 0, max:40}}],
+      xAxes: [{scaleLabel: {display: true, labelString: 'Day'} }],
+      yAxes: [{ticks: {min: 0, max:40}, scaleLabel:{display: true, labelString:'Temperature'}}]
       }
   }
 });

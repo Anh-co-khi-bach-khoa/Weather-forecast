@@ -1,5 +1,6 @@
 var btnOpenSearch = document.querySelector('#Map-button');
 var modal1 = document.querySelector('.modal-Search');
+var data_chart;
 
 var iconCloseSearch = document.querySelector('#close-Search');
 
@@ -74,7 +75,12 @@ function modal3Handler(){
 
 
 var btnOpenChart = document.querySelector("#chart-icon");
-
+var xValues=[]
+var yValuesTemp=[]
+var yValuesPrecip=[]
+var yValuesCloud = []
+var yValuesWind=[]
+var currentChart;
 function modal4Handler(){
     if (document.querySelector('.chart-outer-container').style.display === 'none') 
     {   document.querySelector('.chart-outer-container').style.animation ='fadeIn 0.5s ease-out forwards';
@@ -83,11 +89,105 @@ function modal4Handler(){
         document.querySelector('.chart-wrapper').style.display = 'block';
       }, 500);
         document.querySelector('.chart-outer-container').style.display = 'block';
+        document.getElementById("cc-temp").checked=true;
+        document.querySelector(".calendar-outer-container").style.display='none';
+        destroychart();
     // document.querySelector('.chart-wrapper').style.display = 'block'
+
+      let id = document.getElementById("heart-icon").getAttribute("data-index");
+      let current = new Date();
+      let Past14Date = new Date();
+      Past14Date.setDate(current.getDate()-13);
+      start_date = `${Past14Date.getFullYear()}-${Past14Date.getMonth()+1}-${Past14Date.getDate()}`;
+      end_date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+
+      let chart_choice = document.getElementsByName("chart-choice");
+
+      for(i=0; i<chart_choice.length; i++){
+        chart_choice[i].addEventListener("change", function(){
+          let val = this.value;
+          switch (val){
+              case "temp":
+                  showChart(xValues,yValuesTemp, 'line',  'Day','Temperature');
+                  break;
+              case "wind":
+                  showChart(xValues,yValuesWind, 'line',  'Day','Wind');
+                  break;
+              case "cloud":
+                  showChart(xValues,yValuesCloud, 'line',  'Day','Cloud');
+                  break;
+              case "rain":
+                  showChart(xValues,yValuesPrecip, 'bar', 'Day', 'Rain');
+                  break;
+          }
+        })
+      }
+
+      fetch_API_chart(id, start_date,end_date);
+
+
 }
     else {document.querySelector('.chart-outer-container').style.display = 'none'; 
     document.querySelector('.chart-wrapper').style.display = 'none'}
 
 }
 
+async function fetch_API_chart(id, start, end){
 
+    let url = "http://localhost:8080/weather.api/v1/data/history/daily/"+id+"?"+"start_date="+start+"&end_date="+end;
+    const response = await fetch(url);
+    var json_data = await response.json();
+  
+    data_chart =json_data.data;
+    assignData();
+
+}
+
+function assignData(){
+    xValues=[];
+    yValuesTemp=[];
+    yValuesPrecip=[];
+    yValuesCloud = [];
+    yValuesWind=[];
+    data_chart.forEach((x)=>{
+        xValues.push(x.TimeForecasted.split('-')[2]);
+        yValuesTemp.push(x.Temp);
+        yValuesPrecip.push(x.Precip);
+        yValuesCloud.push(x.Cloud);
+        yValuesWind.push(x.Wind);
+    })
+
+    showChart(xValues,yValuesTemp, 'line', 'Day', 'Temperature');
+
+}
+
+function showChart(xValues,yValues, type, labelX, labelY){
+
+    destroychart();
+
+    currentChart= new Chart("myChart", {
+    type: type,
+    data: {
+        labels: xValues,
+        datasets: [{ 
+        data: yValues,
+        borderColor: "red",
+        fill: true
+        }]
+    },
+    options: {
+        legend: {display: false},
+        scales: {
+        xAxes: [{scaleLabel: {display: true, labelString: labelX} }],
+        yAxes: [{ scaleLabel:{display: true, labelString:labelY}}]
+        }
+    }
+    });
+}
+
+function destroychart(){
+    
+    if (currentChart) {
+        currentChart.destroy();
+    }
+}
