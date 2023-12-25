@@ -126,7 +126,18 @@ function modal4Handler(){
       }, 300);
         document.querySelector('.chart-outer-container').style.display = 'block';
         document.getElementById("cc-temp").checked=true;
-        document.querySelector(".calendar-outer-container").style.display='none';
+
+
+        modalCalendar.style.animation = 'calendarFadeOut 0.3s ease-in-out';
+        modalToday.style.animation = 'leftBtnFadeOut 0.3s ease-in-out';
+
+        setTimeout(function () {
+          modalCalendar.style.display='';
+          modalToday.style.display='';
+        }, 300);
+
+
+        
         destroychart();
         modalChart.style.display = 'block';
     // document.querySelector('.chart-wrapper').style.display = 'block'
