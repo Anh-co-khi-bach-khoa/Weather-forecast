@@ -55,6 +55,7 @@ body{
     border-radius: 10px;
     display: flex;
 }
+
 .modal_inner-Favorite{
     border-radius: 5px;
     margin: 1rem;
@@ -549,12 +550,6 @@ input[type="radio"]:checked + label{
       transform: translateX(0);
     }
   }
-
-  .chart-outer-container{
-    display: none;
-      animation: fadeIn 0.5s ease-out;
-  }
-
   @keyframes chartFadeIn {
     from {
       opacity: 0;
@@ -563,8 +558,140 @@ input[type="radio"]:checked + label{
       opacity: 1;
     }
   }
-
   .chart-wrapper{
     display: none;
-    /* animation: chartFadeIn 2s ease-out 2s; */
+  }
+
+  @keyframes leftBtnFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+  }
+  @keyframes leftBtnFadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+        
+      }
+      to {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+  }
+
+@keyframes calendarFadeIn{
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+}
+@keyframes calendarFadeOut{
+    from {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+}
+
+
+.today-outer-container{
+    margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  z-index: 5;
+  width: 420px;
+  height: 525px;
+  inset: 0;
+  top: 41px;
+  left: 23px;
+  flex-direction: column;
+  display: none;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+
+}
+.today-inner-container{
+    /* z-index: 5; */
+    background-color: whitesmoke;
+    border-radius: 10px;
+    height: 100%;
+    padding: 20px;
+}
+.today-main-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.today-main-left{
+    
+    display: flex;
+    flex-direction: column;
+    transform: translateY(80px);
+    width: 150px;
+}
+.temperature{
+    /* text-align: center; */
+   font-size: 40px;
+}
+.icon{
+    width: 120px; height: 120px; 
+}
+
+.today-main-right{
+    width: 258px;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(50px);
+    text-align: right;
+}
+.temperature-container{
+    transform: translate(20px, -40px);
+}
+#c-character-temp{
+    font-size: 25px;
+    position: fixed;
+    transform: translate(2px, 6px);
+}
+
+.today-black-line{
+    transform: translateX(30px);
+    border-top: 2px solid black;
+    width: 200px;
+}
+
+.element-group{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between;
+}
+.element-icon{
+    width: 30px; 
+    height: 30px; 
+    transform: translate(70px, 10px);
+    /* transform: translate(70px, -5px); */
+}
+#wind-icon{
+    transform: translate(70px, -5px);
+}
+
+@keyframes todayFadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
