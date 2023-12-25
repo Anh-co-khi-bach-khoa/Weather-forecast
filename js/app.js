@@ -64,6 +64,16 @@ function openMap() {
   masterTimeline.reverse();
   masterTimeline.restart();
 }
+
+function unselectDate() {
+  let selectedDateElement = null; 
+  if (selectedDateElement) {
+    selectedDateElement.classList.remove('selected');
+    selectedDateElement = null;
+  }
+}
+
+
 function closeMap(){
 
   modalMap.style.animation ='todayFadeOut 0.3s ease-in-out';
@@ -85,6 +95,7 @@ function closeMap(){
   modalChart.style.animation = '';
   modalOneDay.style.animation = '';
   }, 300);
+  unselectDate();
 }
 
 modalMapclose.addEventListener("click",closeMap);
