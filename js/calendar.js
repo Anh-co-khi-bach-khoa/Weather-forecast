@@ -55,7 +55,7 @@ const renderCalendar = () => {
   currentDate.innerText = `${months[currMonth]} ${currYear}`;
   daysTag.innerHTML = liTag;
 }
-
+let selectedDateElement = null;
 renderCalendar();
 
 prevNextIcon.forEach(icon => {
@@ -77,7 +77,12 @@ document.querySelector('.days').addEventListener('click', event => {
   let modalToday = document.querySelector('.today-outer-container');
   const clickedDateElement = event.target.closest('li');
   if (clickedDateElement) {
-    
+    if (selectedDateElement) {
+      selectedDateElement.classList.remove('selected');
+    }
+
+    selectedDateElement = clickedDateElement;
+    selectedDateElement.classList.add('selected');
     
     const clickedDate = new Date(
       parseInt(clickedDateElement.dataset.year),
@@ -140,7 +145,8 @@ async function fetchData(apiUrl) {
 function updateUI(data) {
   if (data && data.length > 0) {
     const firstItem = data[0];
-
+    document.querySelector('.no-data-group').style.display= '';
+    document.querySelector('.today-main-container').style.display= 'flex';
     const temperatureElement = document.querySelector('.temperature');
     const windElement = document.querySelector('.wind');
     const cloudElement = document.querySelector('.cloud');
@@ -175,10 +181,20 @@ function updateUI(data) {
       iconElement.src = firstItem.Icon;
       iconElement.style.display = 'block';
     } else {
-      iconElement.src = '/assets/images/menhara.webp';
+      iconElement.src = '/assets/oneDay-icons/nhietKe.png';
       iconElement.style.display = 'block';
     }
   } else {
-    console.error('No data available.');
+    // console.error('No data available.');
+    document.querySelector('.today-main-container').style.display= 'none';
+    document.querySelector('.no-data-group').style.display= 'block';
+  }
+}
+
+
+function unselectDate() {
+  if (selectedDateElement) {
+    selectedDateElement.classList.remove('selected');
+    selectedDateElement = null;
   }
 }

@@ -1,6 +1,8 @@
 var btnOpenSearch = document.querySelector('#Map-button');
 var modal1 = document.querySelector('.modal-Search');
 var data_chart;
+var modalChart = document.querySelector('.chart-outer-container');
+
 
 var iconCloseSearch = document.querySelector('#close-Search');
 
@@ -93,6 +95,14 @@ function modal3Handler(){
     if (modalCalendar.style.display === 'none' || modalCalendar.style.display === '') {
         modalCalendar.style.animation = 'calendarFadeIn 0.3s ease-out forwards';
         modalCalendar.style.display = 'block';
+        modalChart.style.animation = 'calendarFadeOut 0.3s ease-in-out';
+
+        setTimeout(function () {
+          
+          modalChart.style.display = 'none';
+
+        }, 300);
+        
     }
     else 
     {
@@ -104,6 +114,8 @@ function modal3Handler(){
             modalToday.style.display = 'none';
 
           }, 300);
+
+
     }
 }
 
@@ -115,7 +127,6 @@ var yValuesPrecip=[]
 var yValuesCloud = []
 var yValuesWind=[]
 var currentChart;
-var modalChart = document.querySelector('.chart-outer-container');
 btnOpenChart.addEventListener('click',modal4Handler);
 function modal4Handler(){
     if (modalChart.style.display === 'none' || modalChart.style.display === '') 
