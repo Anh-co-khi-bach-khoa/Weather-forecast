@@ -236,7 +236,7 @@
                     <i onclick="likeToggle()"  class="fa-solid fa-heart" id="heart-icon" data-index=""></i>
                   </div>
                   <div>                   
-                      <i class="fa-solid fa-chart-line" id="chart-icon" data-index="" style="transform: translateX(50px);" onclick="modal4Handler()" ></i>
+                      <i class="fa-solid fa-chart-line" id="chart-icon" data-index="" style="transform: translateX(50px);" ></i>
                   </div>
                   
                   <h2 id="header-province">Province name</h2>
@@ -278,6 +278,51 @@
     </div>
   </div>
 </div>
+
+<div class="today-outer-container">
+  <div class="close-today-div">
+    
+  </div>
+  <div class="today-inner-container">
+    <div class="today-wrapper">
+      <h2 style="text-align: center;" id="today_modal_province-name">Name</h2>
+      <h4 style="text-align: center;" id="today_modal_date">Date</h4>
+      <div class="today-main-container">
+        <div class="today-main-left">
+          <img class="icon">
+          <div class="temperature-container">
+            <p class="temperature"></p>
+          </div>
+          
+        </div>
+        <div class="today-main-right">
+          <div class="element-group">
+            <img src="/assets/oneDay-icons/wind.png" class="element-icon" id="wind-icon">
+            <div class="wind"></div>
+          </div>
+          <hr class="today-black-line">
+          <div class="element-group">
+            <img src="/assets/oneDay-icons/cloud.png" class="element-icon">
+            <p class="cloud"></p>
+          </div>
+          <hr class="today-black-line">
+          <div class="element-group">
+            <img src="/assets/oneDay-icons/humidity.png" class="element-icon">
+            <p class="humidity"></p>
+          </div>
+          <hr class="today-black-line">
+          <div class="element-group">
+            <img src="/assets/oneDay-icons/rain.png" class="element-icon">
+            <p class="precip"></p>
+          </div>
+          <hr class="today-black-line">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div class="table">
 
   <div class="content-left">
@@ -364,6 +409,8 @@
     
   </div>
 </div>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script src="../js/autoCompleteSearch.js"></script>

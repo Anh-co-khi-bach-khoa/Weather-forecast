@@ -5,6 +5,7 @@ var modalMapclose = document.querySelector('.close-div i')
 var modalCalendar = document.querySelector('.calendar-outer-container')
 var modalTable = document.querySelector('.table')
 var modalChart = document.querySelector('.chart-outer-container')
+var modalOneDay =   document.querySelector('.today-outer-container')
 
 
 function openMap() {
@@ -12,7 +13,7 @@ function openMap() {
 
   let mapTimeline = gsap.timeline();
   mapTimeline.to(".map-overlay", {
-      display: "flex"
+      display: "flex",
   });
   mapTimeline.from(".map-overlay", {
       duration: 0.5,
@@ -20,11 +21,11 @@ function openMap() {
       ease: "power4.out"
   });
   mapTimeline.from(".map-inner-box", {
-    duration: 0.5,
+    duration: 1,
     opacity: 0,
+    x:300,
     ease: "power4.out"
 });
-
   mapTimeline.from(".fade-animate", {
       duration: 0.5,
       opacity: 0,
@@ -33,39 +34,70 @@ function openMap() {
 
   let calendarTimeline = gsap.timeline();
   calendarTimeline.to("#btnCalendar", {
-    display: "flex"
+    display: "flex",
+    opacity: 1
   });
   calendarTimeline.from("#btnCalendar", {
-      duration: 0.5,
+      duration: 0.8,
+      x: 2000,
       opacity: 0,
       ease: "power4.out"
   });
 
   let tableTimeline = gsap.timeline();
   tableTimeline.to(".table", {
-    display: "flex"
+    display:"flex",
+    opacity: 1,
   });
   tableTimeline.from(".table", {
-      duration: 0.5,
-      opacity: 0,
-      ease: "power4.out"
+    duration: 1.3,
+    opacity: 0,
+    y: 300,
+    ease: "power4.out"
   });
-  
+
 
   masterTimeline.add(mapTimeline, 0);
-  masterTimeline.add(calendarTimeline, 0.5);
-  masterTimeline.add(tableTimeline, 0.5);
+  masterTimeline.add(calendarTimeline, 0.75);
+  masterTimeline.add(tableTimeline, 1.3);
 
   masterTimeline.reverse();
   masterTimeline.restart();
 }
 function closeMap(){
-  modalMap.style.display ='none';
-  modalCalendar.style.display ='none';
-  modalTable.style.display = 'none'; 
-  modalChart.style.display = 'none';
 
+  modalMap.style.animation ='todayFadeOut 0.3s ease-in-out';
+  modalCalendar.style.animation ='todayFadeOut 0.3s ease-in-out';
+  modalTable.style.animation = 'todayFadeOut 0.3s ease-in-out'; 
+  modalChart.style.animation = 'todayFadeOut 0.3s ease-in-out';
+  modalOneDay.style.animation = 'todayFadeOut 0.3s ease-in-out';
+
+  setTimeout(function () {
+  modalMap.style.display ='';
+  modalCalendar.style.display ='';
+  modalTable.style.display = ''; 
+  modalChart.style.display = '';
+  modalOneDay.style.display = '';
+
+  modalMap.style.animation ='';
+  modalCalendar.style.animation ='';
+  modalTable.style.animation = ''; 
+  modalChart.style.animation = '';
+  modalOneDay.style.animation = '';
+  }, 300);
 }
+
+modalMapclose.addEventListener("click",closeMap);
+modalMap.addEventListener("click", function(e){
+  if (e.target == e.currentTarget){
+    closeMap();
+  }
+});
+document.querySelector(".modal-wrap").addEventListener("click", function(e){
+  if (e.target == e.currentTarget){
+    closeMap();  
+  }
+});
 
 var data;
 gsap.set (".province", {scale:1});
@@ -110,15 +142,9 @@ document.querySelectorAll(".province").forEach((province) => {
     document.querySelector("#header-province").innerHTML=nameProvince;
 
   });
-  modalMapclose.addEventListener("click",closeMap);
-  modalMap.addEventListener("click", function(e){
-    if (e.target == e.currentTarget){
-      closeMap();
-      
-    }
-  });
 
  });
+
 
 //hien thi cac modal khi click vao mot tinh
  function displayForecast(provinceId){
@@ -199,6 +225,10 @@ document.querySelectorAll(".province").forEach((province) => {
       fetchAPI_data(url);
       console.log(url);
 
+      
+      const currentProvinceName = document.querySelector('#header-province').textContent;
+      document.querySelector('#today_modal_province-name').innerHTML = currentProvinceName;
+
     })
 
     path.addEventListener("contextmenu",function(event){
@@ -212,6 +242,9 @@ document.querySelectorAll(".province").forEach((province) => {
       fetchAPI_data(url);
       console.log(url);
 
+      
+      const currentProvinceName = document.querySelector('#header-province').textContent;
+      document.querySelector('#today_modal_province-name').innerHTML = currentProvinceName;
     })
     
   }
