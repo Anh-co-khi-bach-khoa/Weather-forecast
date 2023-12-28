@@ -8,6 +8,7 @@ var modalChart = document.querySelector('.chart-outer-container')
 var modalOneDay =   document.querySelector('.today-outer-container')
 
 
+var contentNewsElement = document.querySelector(".content_news");
 function openMap() {
   let masterTimeline = gsap.timeline();
 
@@ -75,6 +76,7 @@ function unselectDate() {
 
 
 function closeMap(){
+  contentNewsElement.classList.remove("active")
 
   modalMap.style.animation ='todayFadeOut 0.3s ease-in-out';
   modalCalendar.style.animation ='todayFadeOut 0.3s ease-in-out';
@@ -151,7 +153,7 @@ document.querySelectorAll(".province").forEach((province) => {
     //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
     displayForecast(provinceId);
     document.querySelector("#header-province").innerHTML=nameProvince;
-
+    contentNewsElement.classList.add("active")
   });
 
  });
@@ -490,3 +492,40 @@ function testHeader(provinceId, provinceName){
   document.querySelector("#header-province").innerHTML=provinceName;
 }
 
+
+
+function RenderDataNews() {
+  var url = "http://localhost:8080/weather.api/v1/news"
+  fetch(url)
+  .then(res => res.json())
+  .then(result => {
+    var title = `<div class = "content_news__title">${result.info.title}</div>`
+    var listli = result.info.data.map(item => {
+      return `
+        <li class = "content_news__item">
+          <div class = "content_news__weather">
+            <div class = "content_news__weather-img">
+              <img src="${item.Icon}" alt="">
+            </div>
+            <div class = "content_news__weather-main">
+              <span class = "content_news__weather-region">${item.NameRegion}</span>
+              <span class = "content_news__weather-temperature">
+               ${item.Content_Temperature}
+              </span>
+            </div>
+          </div>
+
+          <div class = "content_news__description">
+            ${item.Content_Description}
+          </div>
+        </li>
+      `
+    })
+    var headerul = `<ul class = "content_news__list">`
+    var footerul = `</ul>`
+
+    contentNewsElement.innerHTML = title + headerul + listli.join('') + footerul;
+  })
+}
+
+RenderDataNews();
