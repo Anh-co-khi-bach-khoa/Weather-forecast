@@ -158,7 +158,7 @@ document.querySelectorAll(".province").forEach((province) => {
 
  });
 
-
+ var svgObject
 //hien thi cac modal khi click vao mot tinh
  function displayForecast(provinceId){
 
@@ -166,13 +166,21 @@ document.querySelectorAll(".province").forEach((province) => {
   provinceId = provinceId.toString();
   let districtId= provinceId;
   provinceId = provinceId.slice(0,2);
+
+  let url_region_byID = ' http://localhost:8080/weather.api/v1/regions/'+provinceId;
+  fetch(url_region_byID)
+  .then(res => res.json())
+  .then(result => {
+      provinceName_global=result.name;
+    })
+
   //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
   document.querySelector("#heart-icon").setAttribute("data-index", districtId);
   updateFavoriteButtonInModal();
 
   var container = document.getElementById("svg-Container");
   container.innerHTML="";
-  var svgObject = document.createElement('object');
+  svgObject = document.createElement('object');
   svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
   svgObject.type = 'image/svg+xml';
   container.appendChild(svgObject);
@@ -185,9 +193,19 @@ document.querySelectorAll(".province").forEach((province) => {
 
 
   svgObject.addEventListener('load', function() {
+    const svgDocument = svgObject.contentDocument;
+    eventDetailProvince(svgDocument);
+      if(districtId.length == 4){
 
-  const svgDocument = svgObject.contentDocument;
-  eventDetailProvince(svgDocument);
+        let path = svgDocument.getElementById(districtId);
+        path.setAttribute("stroke-width",3);
+        path.setAttribute("stroke", "#000000");
+        path.setAttribute("stroke-opacity",1);
+      }else{
+
+      }
+  
+
 
         
 });
