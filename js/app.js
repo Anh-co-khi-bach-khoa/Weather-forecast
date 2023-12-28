@@ -166,6 +166,14 @@ document.querySelectorAll(".province").forEach((province) => {
   provinceId = provinceId.toString();
   let districtId= provinceId;
   provinceId = provinceId.slice(0,2);
+
+  let url_region_byID = ' http://localhost:8080/weather.api/v1/regions/'+provinceId;
+  fetch(url_region_byID)
+  .then(res => res.json())
+  .then(result => {
+      provinceName_global=result.name;
+    })
+
   //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
   document.querySelector("#heart-icon").setAttribute("data-index", districtId);
   updateFavoriteButtonInModal();
