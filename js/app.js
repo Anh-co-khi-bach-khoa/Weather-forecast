@@ -8,7 +8,9 @@ var modalChart = document.querySelector('.chart-outer-container')
 var modalOneDay =   document.querySelector('.today-outer-container')
 
 
+var contentNewsElement = document.querySelector(".content_news");
 function openMap() {
+  contentNewsElement.classList.add("active")
   let masterTimeline = gsap.timeline();
 
   let mapTimeline = gsap.timeline();
@@ -75,6 +77,7 @@ function unselectDate() {
 
 
 function closeMap(){
+  contentNewsElement.classList.remove("active")
 
   modalMap.style.animation ='todayFadeOut 0.3s ease-in-out';
   modalCalendar.style.animation ='todayFadeOut 0.3s ease-in-out';
@@ -151,12 +154,11 @@ document.querySelectorAll(".province").forEach((province) => {
     //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
     displayForecast(provinceId);
     document.querySelector("#header-province").innerHTML=nameProvince;
-
   });
 
  });
 
-
+ var svgObject
 //hien thi cac modal khi click vao mot tinh
  function displayForecast(provinceId){
 
@@ -164,13 +166,21 @@ document.querySelectorAll(".province").forEach((province) => {
   provinceId = provinceId.toString();
   let districtId= provinceId;
   provinceId = provinceId.slice(0,2);
+
+  let url_region_byID = ' http://localhost:8080/weather.api/v1/regions/'+provinceId;
+  fetch(url_region_byID)
+  .then(res => res.json())
+  .then(result => {
+      provinceName_global=result.name;
+    })
+
   //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
   document.querySelector("#heart-icon").setAttribute("data-index", districtId);
   updateFavoriteButtonInModal();
 
   var container = document.getElementById("svg-Container");
   container.innerHTML="";
-  var svgObject = document.createElement('object');
+  svgObject = document.createElement('object');
   svgObject.data = '../assets/SVG/DetailProvince/'+provinceId+'.svg';
   svgObject.type = 'image/svg+xml';
   container.appendChild(svgObject);
@@ -183,9 +193,19 @@ document.querySelectorAll(".province").forEach((province) => {
 
 
   svgObject.addEventListener('load', function() {
+    const svgDocument = svgObject.contentDocument;
+    eventDetailProvince(svgDocument);
+      if(districtId.length == 4){
 
-  const svgDocument = svgObject.contentDocument;
-  eventDetailProvince(svgDocument);
+        let path = svgDocument.getElementById(districtId);
+        path.setAttribute("stroke-width",3);
+        path.setAttribute("stroke", "#000000");
+        path.setAttribute("stroke-opacity",1);
+      }else{
+
+      }
+  
+
 
         
 });
@@ -490,3 +510,40 @@ function testHeader(provinceId, provinceName){
   document.querySelector("#header-province").innerHTML=provinceName;
 }
 
+
+
+function RenderDataNews() {
+  var url = "http://localhost:8080/weather.api/v1/news"
+  fetch(url)
+  .then(res => res.json())
+  .then(result => {
+    var title = `<div class = "content_news__title">${result.info.title}</div>`
+    var listli = result.info.data.map(item => {
+      return `
+        <li class = "content_news__item">
+          <div class = "content_news__weather">
+            <div class = "content_news__weather-img">
+              <img src="${item.Icon}" alt="">
+            </div>
+            <div class = "content_news__weather-main">
+              <span class = "content_news__weather-region">${item.NameRegion}</span>
+              <span class = "content_news__weather-temperature">
+               ${item.Content_Temperature}
+              </span>
+            </div>
+          </div>
+
+          <div class = "content_news__description">
+            ${item.Content_Description}
+          </div>
+        </li>
+      `
+    })
+    var headerul = `<ul class = "content_news__list">`
+    var footerul = `</ul>`
+
+    contentNewsElement.innerHTML = title + headerul + listli.join('') + footerul;
+  })
+}
+
+RenderDataNews();
