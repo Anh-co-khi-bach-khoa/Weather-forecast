@@ -2,7 +2,7 @@ var btnOpenSearch = document.querySelector('#Map-button');
 var modal1 = document.querySelector('.modal-Search');
 var data_chart;
 var modalChart = document.querySelector('.chart-outer-container');
-
+var contentNewsElement = document.querySelector(".content_news");
 
 var iconCloseSearch = document.querySelector('#close-Search');
 
