@@ -10,6 +10,7 @@ var modalOneDay =   document.querySelector('.today-outer-container')
 
 var contentNewsElement = document.querySelector(".content_news");
 function openMap() {
+  contentNewsElement.classList.add("active")
   let masterTimeline = gsap.timeline();
 
   let mapTimeline = gsap.timeline();
@@ -153,7 +154,6 @@ document.querySelectorAll(".province").forEach((province) => {
     //  document.getElementById('heart-icon').dataset.currentProvince = provinceId;
     displayForecast(provinceId);
     document.querySelector("#header-province").innerHTML=nameProvince;
-    contentNewsElement.classList.add("active")
   });
 
  });
