@@ -341,13 +341,16 @@ for(var i=0; i<=5; i++){
   let count =0;
 
   data.forEach((x,index,array) =>{
-    if(x.TimeForecasted.split(' ')[1].split(':')[0]=="00") {
+
+    count++;
+    if(x.TimeForecasted.split(' ')[1].split(':')[0]=="21") {
       colspan.push(count);
       count=0;
     }
-    count++;
+
     if(index === array.length-1){
       colspan.push(count);
+      console.log(colspan);
     }
   });
   // console.log(colspan);
