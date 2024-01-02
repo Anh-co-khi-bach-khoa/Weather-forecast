@@ -445,6 +445,10 @@ async function updateFavoriteProvincesList() {
 
  const html = await Promise.all(favoriteList.map(async(item) => {
   const currentDate = new Date();
+
+  const timeZoneOffset = 7 * 60;
+  currentDate.setMinutes ( currentDate.getMinutes() + timeZoneOffset);
+
     const startDate = currentDate.toISOString().split('T')[0];
     const endDate = new Date(currentDate.getTime() + 4 * 24 * 60 * 60 * 1000)
       .toISOString()
