@@ -348,9 +348,11 @@ for(var i=0; i<=5; i++){
       count=0;
     }
 
-    if(index === array.length-1){
-      colspan.push(count);
-      console.log(colspan);
+    if(index == array.length-1){
+      if(count != 0){
+        colspan.push(count);
+        console.log(colspan);
+      }
     }
   });
   // console.log(colspan);
